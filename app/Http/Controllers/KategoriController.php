@@ -14,6 +14,12 @@ class KategoriController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->folderFoto = public_path('upload\foto_kategori');
+    }
+
     public function index()
     {
         $kategori = Kategori::all();
@@ -46,6 +52,13 @@ class KategoriController extends Controller
 
         $kategori->nama_kategori = $request->nama;
 
+        if($request->file('foto')){
+            $file = $request->file('foto');
+            $nowTimeStamp = now()->timestamp;
+            $fileName = "{$nowTimeStamp}-{$file->getClientOriginalName()}";
+            $file->move($this->folderFoto, $fileName);
+            $kategori->foto_kategori = $fileName;
+        }
 
         $kategori->save();
         return back()->with('success', 'Data Berhasil ditambah');
@@ -85,7 +98,15 @@ class KategoriController extends Controller
         // @dd($request->all());
         // @dd($id);
         $kategori = Kategori::findorfail($id);
-        $kategori->update($request->all());
+        if($request->file('foto')){
+            $file = $request->file('foto');
+            $nowTimeStamp = now()->timestamp;
+            $fileName = "{$nowTimeStamp}-{$file->getClientOriginalName()}";
+            $file->move($this->folderFoto, $fileName);
+            $kategori->foto_kategori = $fileName;
+        }
+        $kategori->nama_kategori = $request->nama_kategori;
+        $kategori->save();
         return back()->with('success', 'Data Berhasil Diubah!');
     }
 

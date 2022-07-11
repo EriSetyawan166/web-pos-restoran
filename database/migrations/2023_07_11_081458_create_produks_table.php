@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('produk', function (Blueprint $table) {
             $table->bigInteger('id_produk')->autoIncrement();
-            $table->unsignedBigInteger('id_kategori');
-            $table->foreign('id_kategori')->references('id_kategori')->on('kategori')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('kategori_id');
+            $table->foreign('kategori_id')->references('id_kategori')->on('kategori')->onDelete('cascade')->onUpdate('cascade');
             $table->string('kode_produk');
             $table->string('nama_produk');
             $table->string('foto_produk');

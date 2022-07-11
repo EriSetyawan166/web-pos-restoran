@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Produk;
+use App\Models\Kategori;
 
 class ProdukController extends Controller
 {
@@ -13,11 +14,18 @@ class ProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->folderFoto = public_path('upload\foto_produk');
+    }
+
     public function index()
     {
+        $kategori = Kategori::all();
         $produk = Produk::all();
         $user = User::where('id','=',Auth::user()->id)->firstOrFail();
-        return view('admin.produk', compact('user', 'produk'));
+        return view('admin.produk', compact('user', 'produk', 'kategori'));
     }
 
     /**
@@ -38,7 +46,26 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // @dd($request->all());
+        $produk = new Produk();
+        $produk->kategori_id = $request->kategori;
+        $produk->kode_produk= $request->kode;
+        $produk->nama_produk = $request->nama;
+        $produk->harga = $request->harga;
+        $produk->stok = $request->stok;
+
+        if($request->file('foto')){
+            $file = $request->file('foto');
+            $nowTimeStamp = now()->timestamp;
+            $fileName = "{$nowTimeStamp}-{$file->getClientOriginalName()}";
+            $file->move($this->folderFoto, $fileName);
+            $produk->foto_produk = $fileName;
+        }
+
+
+        $produk->save();
+
+        return redirect()->route('produk.index') -> with('success', 'Data berhasil ditambah');
     }
 
     /**
@@ -72,7 +99,23 @@ class ProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $produk = Produk::findorfail($id);
+        if($request->file('foto')){
+            $file = $request->file('foto');
+            $nowTimeStamp = now()->timestamp;
+            $fileName = "{$nowTimeStamp}-{$file->getClientOriginalName()}";
+            $file->move($this->folderFoto, $fileName);
+            $produk->foto_produk = $fileName;
+        }
+        $produk->kategori_id = $request->kategori;
+        $produk->kode_produk= $request->kode;
+        $produk->nama_produk = $request->nama;
+        $produk->harga = $request->harga;
+        $produk->stok = $request->stok;
+
+        $produk->save();
+        return back()->with('success', 'Data Berhasil Diubah!');
+
     }
 
     /**
@@ -83,6 +126,9 @@ class ProdukController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $produk = Produk::where('id_produk','=',$id)->firstOrFail();
+        // @dd($kategori);
+        $produk->delete();
+        return back()->with('info', 'Data Berhasil Dihapus');
     }
 }

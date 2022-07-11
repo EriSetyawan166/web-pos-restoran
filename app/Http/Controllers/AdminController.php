@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Produk;
+use App\Models\Kategori;
 
 class AdminController extends Controller
 {
@@ -15,8 +17,10 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $kategori = Kategori::count();
+        $produk = Produk::count();
         $user = User::where('id','=',Auth::user()->id)->firstOrFail();
-        return view('admin.dashboard', compact('user'));
+        return view('admin.dashboard', compact('user', 'kategori', 'produk'));
     }
 
     /**

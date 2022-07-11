@@ -145,13 +145,17 @@
                                                         <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form action="{{route('kategori.store')}}" method="POST">
+                                                    <form action="{{route('kategori.store')}}" method="POST" enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="modal-body">
                                                             <div class="form-group">
                                                                 <input type="text" id="nama" name="nama" placeholder="Masukkan nama kategori" class="form-control" required autocomplete="off">
                                                             </div>
+                                                            <div class="form-group mt-3">
+                                                                <input type="file" name="foto" class="form-control" required>
+                                                            </div>
                                                         </div>
+
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                                                             <button type="submit" class="btn btn-primary">Simpan</button>
@@ -167,7 +171,8 @@
                                                         <thead>
                                                             <tr>
                                                                 <th class="text-center" style="width: 8%">No</th>
-                                                                <th style="width: 70%">Nama</th>
+                                                                <th style="width:40%">Nama</th>
+                                                                <th>Foto</th>
                                                                 <th>Aksi</th>
                                                             </tr>
                                                         </thead>
@@ -177,6 +182,7 @@
                                                             <tr>
                                                                 <td class="text-center">{{$loop->iteration}}</td>
                                                                 <td>{{$kg->nama_kategori}}</td>
+                                                                <td><img src="{{asset('upload/foto_kategori')}}/{{$kg->foto_kategori}}" class="img-thumbnail" width="100" height="100" alt=""></td>
                                                                 <td class=""><a href="" class="btn btn-warning btn-sm mr-1" data-toggle="modal" data-target="#ubah_kategori{{$kg->id_kategori}}"><i class="fa-solid fa-pen to-square mr-1"></i>Ubah</a>
                                                                     <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapus_kategori{{$kg->id_kategori}}"><i class="fa-solid fa-trash to-square mr-1"></i>Hapus</a>
                                                                 </td>
@@ -219,11 +225,14 @@
                                                             <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <form action="{{url('admin/kategori')}}/{{$kg->id_kategori}}" method="POST">
+                                                        <form action="{{url('admin/kategori')}}/{{$kg->id_kategori}}" method="POST" enctype="multipart/form-data">
                                                             @csrf
                                                             <div class="modal-body">
                                                                 <div class="form-group">
                                                                     <input type="text" id="nama" name="nama_kategori" placeholder="Masukkan nomor nama" class="form-control" required autocomplete="off" value="{{$kg->nama_kategori}}">
+                                                                </div>
+                                                                <div class="form-group mt-3">
+                                                                    <input type="file" name="foto" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
