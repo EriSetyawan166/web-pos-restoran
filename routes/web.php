@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,4 +27,8 @@ Route::get('logout', 'App\Http\Controllers\AuthController@logout')->name('logout
 Route::group(['middleware' => ['auth', 'cekleveladmin'], 'prefix' => 'admin'], function(){
     // Route::get('dashboard', 'App\Http\Controllers\DashboardAdminController@index')->name('dashboard');
     Route::get('dashboard', 'App\Http\Controllers\AdminController@index')->name('dashboard');
+    Route::resource('kategori', KategoriController::class);
+    Route::resource('produk', ProdukController::class);
 });
+
+Route::resource('menu', MenuController::class);

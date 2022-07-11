@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Produk;
 
-class AdminController extends Controller
+class ProdukController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,9 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $produk = Produk::all();
         $user = User::where('id','=',Auth::user()->id)->firstOrFail();
-        return view('admin.dashboard', compact('user'));
+        return view('admin.produk', compact('user', 'produk'));
     }
 
     /**

@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Kategori;
 
-class AdminController extends Controller
+class KategoriController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,10 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $kategori = Kategori::all();
+
         $user = User::where('id','=',Auth::user()->id)->firstOrFail();
-        return view('admin.dashboard', compact('user'));
+        return view('admin.kategori', compact('user', 'kategori'));
     }
 
     /**
@@ -37,7 +40,15 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $kategori = new Kategori();
+
+
+
+        $kategori->nama_kategori = $request->nama;
+
+
+        $kategori->save();
+        return back()->with('success', 'Data Berhasil ditambah');
     }
 
     /**
@@ -71,7 +82,11 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // @dd($request->all());
+        // @dd($id);
+        $kategori = Kategori::findorfail($id);
+        $kategori->update($request->all());
+        return back()->with('success', 'Data Berhasil Diubah!');
     }
 
     /**
@@ -82,6 +97,10 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // @dd($id);
+        $kategori = Kategori::where('id_kategori','=',$id)->firstOrFail();
+        // @dd($kategori);
+        $kategori->delete();
+        return back()->with('info', 'Data Berhasil Dihapus');
     }
 }
