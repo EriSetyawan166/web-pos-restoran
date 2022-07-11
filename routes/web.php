@@ -14,5 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return (redirect()->intended('login'));
+});
+
+Route::get('login', 'App\Http\Controllers\AuthController@index')->name('login');
+Route::post('proses_login', 'App\Http\Controllers\AuthController@proses_login');
+Route::get('logout', 'App\Http\Controllers\AuthController@logout')->name('logout');
+
+Route::group(['middleware' => ['auth', 'cekleveladmin'], 'prefix' => 'admin'], function(){
+    // Route::get('dashboard', 'App\Http\Controllers\DashboardAdminController@index')->name('dashboard');
+    Route::get('dashboard', 'App\Http\Controllers\AdminController@index')->name('dashboard');
 });
