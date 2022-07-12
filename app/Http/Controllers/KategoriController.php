@@ -24,7 +24,7 @@ class KategoriController extends Controller
     {
         $kategori = Kategori::all();
 
-        $user = User::where('id','=',Auth::user()->id)->firstOrFail();
+        $user = User::where('nip','=',Auth::user()->nip)->firstOrFail();
         return view('admin.kategori', compact('user', 'kategori'));
     }
 

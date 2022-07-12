@@ -17,9 +17,10 @@ class AdminController extends Controller
      */
     public function index()
     {
+        // @dd("jalan");
         $kategori = Kategori::count();
         $produk = Produk::count();
-        $user = User::where('id','=',Auth::user()->id)->firstOrFail();
+        $user = User::where('nip','=',Auth::user()->nip)->firstOrFail();
         return view('admin.dashboard', compact('user', 'kategori', 'produk'));
     }
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,7 @@ Route::group(['middleware' => ['auth', 'cekleveladmin'], 'prefix' => 'admin'], f
     Route::get('dashboard', 'App\Http\Controllers\AdminController@index')->name('dashboard');
     Route::resource('kategori', KategoriController::class);
     Route::resource('produk', ProdukController::class);
+    Route::resource('user', UserController::class);
 });
 
 Route::resource('menu', MenuController::class);

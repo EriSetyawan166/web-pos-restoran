@@ -58,6 +58,7 @@
             </a>
 					</li>
 
+
 			</div>
 		</nav>
 
@@ -117,7 +118,7 @@
 
 				<div class="container-fluid p-0">
 
-					<h1 class="h3 mb-3"><strong>Data</strong> Produk</h1>
+					<h1 class="h3 mb-3"><strong>Data</strong> Staff Kasir</h1>
 
 					<div class="row">
 
@@ -129,7 +130,7 @@
                                             <div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">Produk</h5>
+														<h5 class="card-title">Staff Kasir</h5>
 													</div>
 
 													<div class="col-auto">
@@ -138,45 +139,43 @@
 														</div>
 													</div>
 												</div>
-												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-plus"></i> Tambah Produk</button>
+												<button id="tambah_data" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-plus"></i> Tambah Data</button>
 
                                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Produk</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Staff Kasir</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form action="{{url('admin/produk')}}" method="POST" enctype="multipart/form-data">
+                                                    <form action="{{url('admin/user')}}" method="POST">
                                                         @csrf
                                                         <div class="modal-body">
-                                                            <div class="form-group">
-                                                                <input type="text" id="nama" name="nama" placeholder="Masukkan nama produk" class="form-control" required autocomplete="off">
+                                                            <div class="form-group mt-3">
+                                                                <input type="text" id="nip" name="nip" placeholder="Masukkan nomor nip" class="form-control" required autocomplete="off" >
                                                             </div>
                                                             <div class="form-group mt-3">
-                                                                <input type="text" id="kode" name="kode" placeholder="Masukkan kode produk" class="form-control" required autocomplete="off">
+                                                                <input type="text" id="nama" name="nama" placeholder="Masukkan nama staff" class="form-control" required autocomplete="off">
                                                             </div>
                                                             <div class="form-group mt-3">
-                                                                <select class="form-control select2 mx-auto mt-2" style="width: 100%" name="kategori" id="kategori">
-                                                                    <option selected disabled value="">Pilih Kategori</option>
-                                                                    @foreach ($kategori as $item)
-                                                                    <option value="{{ $item->id_kategori}}">{{ $item->nama_kategori}}</option>
-                                                                    @endforeach
-                                                                </select>
+                                                                <input type="text" id="username" name="username" placeholder="Masukkan username" class="form-control" required autocomplete="off">
                                                             </div>
                                                             <div class="form-group mt-3">
-                                                                <input type="number" id="harga" name="harga" placeholder="Masukkan harga produk" class="form-control" required autocomplete="off">
-                                                            </div>
-                                                            <div class="form-group mt-3">
-                                                                <input type="number" id="stok" name="stok" placeholder="Masukkan stok produk" class="form-control" required autocomplete="off">
-                                                            </div>
+                                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Masukkan Password">
 
+                                                                @error('password')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                            <strong>Konfirmasi Password Salah</strong>
+                                                                    </span>
+                                                                @enderror
+                                                            </div>
                                                             <div class="form-group mt-3">
-                                                                <input type="file" name="foto" class="form-control" required>
+                                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="current-password" placeholder="Masukkan Ulang Password">
                                                             </div>
                                                         </div>
+
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                                                             <button type="submit" class="btn btn-primary">Simpan</button>
@@ -192,109 +191,102 @@
                                                         <thead>
                                                             <tr>
                                                                 <th class="text-center" style="width: 8%">No</th>
-                                                                <th>Nama</th>
-                                                                <th>Kode</th>
-                                                                <th>kategori</th>
-                                                                <th>foto</th>
-                                                                <th>harga</th>
-                                                                <th>stok</th>
+                                                                <th>nip</th>
+                                                                <th>username</th>
+                                                                <th>nama</th>
                                                                 <th>aksi</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @foreach ($produk as $pd)
-
+                                                        @foreach ($data_user as $dt)
+                                                            @if ($dt->username == 'admin')
+                                                                @continue
+                                                            @endif
                                                             <tr>
-                                                                <td class="text-center">{{$loop->iteration}}</td>
-                                                                <td>{{$pd->nama_produk}}</td>
-                                                                <td>{{$pd->kode_produk}}</td>
-                                                                <td>{{$pd->kategori->nama_kategori}}</td>
-                                                                <td><img src="{{asset('upload/foto_produk')}}/{{$pd->foto_produk}}" class="img-thumbnail" width="100" height="100" alt=""></td>
-                                                                <td>{{$pd->harga}}</td>
-                                                                <td>{{$pd->stok}}</td>
-                                                                <td class=""><a href="" class="btn btn-warning btn-sm mr-1" data-toggle="modal" data-target="#ubah_produk{{$pd->id_produk}}"><i class="fa-solid fa-pen to-square mr-1"></i>Ubah</a>
-                                                                    <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapus_produk{{$pd->id_produk}}"><i class="fa-solid fa-trash to-square mr-1"></i>Hapus</a>
+                                                                <td class="text-center">{{$loop->iteration-1}}</td>
+                                                                <td>{{$dt->nip}}</td>
+                                                                <td>{{$dt->username}}</td>
+                                                                <td>{{$dt->nama}}</td>
+                                                                <td class=""><a id="ubah_data" href="" class="btn btn-warning btn-sm mr-1" data-toggle="modal" data-target="#ubah_user{{$dt->nip}}"><i class="fa-solid fa-pen to-square mr-1"></i>Ubah</a>
+                                                                    <a  href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapus_user{{$dt->nip}}"><i class="fa-solid fa-trash to-square mr-1"></i>Hapus</a>
                                                                 </td>
                                                             </tr>
 
                                                         @endforeach
 
-                                                        @foreach ($produk as $pd)
-                                                        <div class="modal fade" id="hapus_produk{{$pd->id_produk}}" tabindex="-1" role="dialog" aria-labelledby="hapus-siswa" aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus data?</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <p>Apakah Anda yakin ingin menghapus data?</p>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                                                                    <form action="{{url('admin/produk', $pd->id_produk)}}" method="POST">
-                                                                        {{ csrf_field() }}
-                                                                        <input type="hidden" name="_method" value="DELETE">
-                                                                        <button class="btn btn-danger" type="submit">hapus</button>
-                                                                    </form>
-
-                                                                </div>
-                                                                </div>
-                                                            </div>
+                                                        @foreach ($data_user as $dt)
+                                                <div class="modal fade" id="hapus_user{{$dt->nip}}" tabindex="-1" role="dialog" aria-labelledby="hapus-siswa" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Hapus data?</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
                                                         </div>
+                                                        <div class="modal-body">
+                                                            <p>Apakah Anda yakin ingin menghapus data?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                                                            <form action="{{url('admin/user', $dt->nip)}}" method="POST">
+                                                                {{ csrf_field() }}
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <button class="btn btn-danger" type="submit">hapus</button>
+                                                            </form>
 
-                                                        <div class="modal fade" id="ubah_produk{{$pd->id_produk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Ubah Data Produk</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                    </button>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade" id="ubah_user{{$dt->nip}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Staff Kasir</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="{{url('admin/user')}}/{{$dt->nip}}" method="POST" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <div class="modal-body">
+                                                                <div class="form-group mt-3">
+                                                                    <input type="text" id="nip" name="nip" placeholder="Masukkan nomor nip" class="form-control" required autocomplete="off" value="{{$dt->nip}}" >
                                                                 </div>
-                                                                <form action="{{url('admin/produk')}}/{{$pd->id_produk}}" method="POST" enctype="multipart/form-data">
-                                                                    @csrf
-                                                                    <div class="modal-body">
-                                                                        <div class="form-group">
-                                                                            <input type="text" id="nama" name="nama" placeholder="Masukkan nama produk" class="form-control" required autocomplete="off" value="{{$pd->nama_produk}}">
-                                                                        </div>
-                                                                        <div class="form-group mt-3">
-                                                                            <input type="text" id="kode" name="kode" placeholder="Masukkan kode produk" class="form-control" required autocomplete="off" value="{{$pd->kode_produk}}">
-                                                                        </div>
-                                                                        <div class="form-group mt-3">
-                                                                            <select class="form-control select2 mx-auto mt-2" style="width: 100%" name="kategori" id="kategori">
-                                                                                <option selected disabled value="">Pilih Kategori</option>
-                                                                                @foreach ($kategori as $item)
-                                                                                <option @if ($item->nama_kategori == $pd->kategori->nama_kategori) @selected(true) @endif value="{{ $item->id_kategori}}">{{ $item->nama_kategori}}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="form-group mt-3">
-                                                                            <input type="number" id="harga" name="harga" placeholder="Masukkan harga produk" class="form-control" required autocomplete="off" value="{{$pd->harga}}">
-                                                                        </div>
-                                                                        <div class="form-group mt-3">
-                                                                            <input type="number" id="stok" name="stok" placeholder="Masukkan stok produk" class="form-control" required autocomplete="off" value="{{$pd->stok}}">
-                                                                        </div>
+                                                                <div class="form-group mt-3">
+                                                                    <input type="text" id="nama" name="nama" placeholder="Masukkan nama staff" class="form-control" required autocomplete="off" value="{{$dt->nama}}">
+                                                                </div>
+                                                                <div class="form-group mt-3">
+                                                                    <input type="text" id="username" name="username" placeholder="Masukkan username" class="form-control" required autocomplete="off" value="{{$dt->username}}">
+                                                                </div>
+                                                                <div class="form-group mt-3">
+                                                                    <input id="password" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_baru" autocomplete="current-password" placeholder="Masukkan Password Baru">
 
-                                                                        <div class="form-group mt-3">
-                                                                            <input type="file" name="foto" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                                                                                <input type="hidden" name="_method" value="PUT">
-                                                                            <button class="btn btn-warning" type="submit">Ubah</button>
-                                                                    </div>
-                                                                    </div>
-                                                                </form>
+                                                                    @error('password_confirmation')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                                <strong>Konfirmasi Password Salah</strong>
+                                                                        </span>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="form-group mt-3">
+                                                                    <input id="password" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" autocomplete="current-password" placeholder="Masukkan Ulang Password">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                                                                        <input type="hidden" name="_method" value="PUT">
+                                                                    <button class="btn btn-warning" type="submit">Ubah</button>
                                                             </div>
                                                             </div>
+                                                        </form>
+                                                    </div>
+                                                    </div>
 
 
 
-                                                        @endforeach
+                                                @endforeach
                                                     </tbody>
                                                     </table>
                                                 </div>
@@ -566,7 +558,33 @@
 				defaultDate: defaultDate
 			});
 		});
+
+
 	</script>
+
+    @error('password')
+    <script>
+        window.onload = function(){
+    document.getElementById('tambah_data').click();
+    }
+    </script>
+    @enderror
+
+    @error('password_confirmation')
+    <script>
+        window.onload = function(){
+            @php
+
+            alert()->error('Konfirmasi Password Salah');
+
+
+            @endphp
+
+    }
+    </script>
+    @enderror
+
+
     @include('sweetalert::alert')
 
 

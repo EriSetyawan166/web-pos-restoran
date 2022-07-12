@@ -52,6 +52,11 @@
               <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Produk</span>
             </a>
 					</li>
+                    <li class="sidebar-item {{ (request()->is('admin/user')) ? 'active' : '' }}">
+						<a class="sidebar-link" href="{{route('user.index')}}">
+              <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
+            </a>
+					</li>
 
 
 			</div>

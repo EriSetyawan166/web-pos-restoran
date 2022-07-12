@@ -4,28 +4,20 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Produk;
-use App\Models\Kategori;
 
-class ProdukController extends Controller
+
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function __construct()
-    {
-        $this->folderFoto = public_path('upload\foto_produk');
-    }
-
     public function index()
     {
-        $kategori = Kategori::all();
-        $produk = Produk::all();
+        $data_user = User::all();
         $user = User::where('nip','=',Auth::user()->nip)->firstOrFail();
-        return view('admin.produk', compact('user', 'produk', 'kategori'));
+        return view('admin.user', compact('user', 'data_user'));
     }
 
     /**
@@ -47,25 +39,28 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         // @dd($request->all());
-        $produk = new Produk();
-        $produk->kategori_id = $request->kategori;
-        $produk->kode_produk= $request->kode;
-        $produk->nama_produk = $request->nama;
-        $produk->harga = $request->harga;
-        $produk->stok = $request->stok;
+        request()->validate(
+            [
+                // 'password' => 'required',
+                // 'password_ulang' => 'same:password',
+                'password' => 'required|confirmed'
+            ]
+        );
 
-        if($request->file('foto')){
-            $file = $request->file('foto');
-            $nowTimeStamp = now()->timestamp;
-            $fileName = "{$nowTimeStamp}-{$file->getClientOriginalName()}";
-            $file->move($this->folderFoto, $fileName);
-            $produk->foto_produk = $fileName;
+        $user = new User();
+        $data_user = User::where('nip', '=', $request->nip)->first();
+        if ($data_user) {
+            return back()->with('info', 'Duplikat data (Data Pegawai sudah terdaftar di dalam sistem)');
         }
 
+        $user->nip = $request->nip;
+        $user->nama = $request->nama;
+        $user->username = $request->username;
+        $user->password = bcrypt($request->password);
 
-        $produk->save();
 
-        return redirect()->route('produk.index') -> with('success', 'Data berhasil ditambah');
+        $user->save();
+        return back()->with('success', 'Data Berhasil ditambah');
     }
 
     /**
@@ -99,22 +94,27 @@ class ProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $produk = Produk::findorfail($id);
-        if($request->file('foto')){
-            $file = $request->file('foto');
-            $nowTimeStamp = now()->timestamp;
-            $fileName = "{$nowTimeStamp}-{$file->getClientOriginalName()}";
-            $file->move($this->folderFoto, $fileName);
-            $produk->foto_produk = $fileName;
-        }
-        $produk->kategori_id = $request->kategori;
-        $produk->kode_produk= $request->kode;
-        $produk->nama_produk = $request->nama;
-        $produk->harga = $request->harga;
-        $produk->stok = $request->stok;
+        // @dd($request->all());
+        request()->validate(
+            [
+                // 'password' => 'required',
+                // 'password_ulang' => 'same:password',
+                'password_confirmation' => 'same:password_baru'
+            ]
+        );
 
-        $produk->save();
+        $user = User::findorfail($id);
+        $user->nip = $request->nip;
+        $user->nama = $request->nama;
+        $user->username = $request->username;
+
+        if ($request->password_baru) {
+            $user->password = bcrypt($request->password_baru);
+        }
+
+        $user->save();
         return back()->with('success', 'Data Berhasil Diubah!');
+
 
     }
 
@@ -126,9 +126,9 @@ class ProdukController extends Controller
      */
     public function destroy($id)
     {
-        $produk = Produk::where('id_produk','=',$id)->firstOrFail();
+        $user = User::where('nip','=',$id)->firstOrFail();
         // @dd($kategori);
-        $produk->delete();
+        $user->delete();
         return back()->with('info', 'Data Berhasil Dihapus');
     }
 }

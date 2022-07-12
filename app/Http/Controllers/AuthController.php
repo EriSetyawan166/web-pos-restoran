@@ -43,7 +43,7 @@ class AuthController extends Controller
                 $request->session()->regenerate();
                 session([
                     'nama' => $session->username,
-                    'id' => $session->id,
+                    'nip' => $session->nip,
                     'role_user'=> $session->role_id,
                 ]);
 
