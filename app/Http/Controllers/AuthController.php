@@ -42,7 +42,7 @@ class AuthController extends Controller
 
                 $request->session()->regenerate();
                 session([
-                    'nama' => $session->username,
+                    'nama' => $session->nama,
                     'nip' => $session->nip,
                     'role_user'=> $session->role_id,
                 ]);
@@ -53,7 +53,7 @@ class AuthController extends Controller
                 if ($session->role_id == 1) {
                     return redirect()->intended('admin\dashboard')->with('success', "Selamat Datang ". $session->username);
                 } else{
-                    return redirect()->intended('user\dashboard');
+                    return redirect()->intended('kasir\dashboard')->with('success', "Selamat Datang ". $session->nama);
                 }
 
             }

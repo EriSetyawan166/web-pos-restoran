@@ -1,0 +1,5 @@
+@media screen and (min-width: 600px) {
+    img.card-img-top.responsive{
+        height: 170px !important;
+    }
+}

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KasirController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProdukController;
@@ -31,6 +32,13 @@ Route::group(['middleware' => ['auth', 'cekleveladmin'], 'prefix' => 'admin'], f
     Route::resource('kategori', KategoriController::class);
     Route::resource('produk', ProdukController::class);
     Route::resource('user', UserController::class);
+
 });
+
+Route::group(['middleware' => ['auth', 'cekleveluser'], 'prefix' => 'kasir'], function(){
+    Route::resource('dashboard', KasirController::class);
+});
+
+
 
 Route::resource('menu', MenuController::class);

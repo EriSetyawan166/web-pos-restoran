@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Kategori;
 
 class MenuController extends Controller
 {
@@ -13,7 +14,8 @@ class MenuController extends Controller
      */
     public function index()
     {
-        return view('menu');
+        $kategori = Kategori::all();
+        return view('menu', compact('kategori'));
     }
 
     /**

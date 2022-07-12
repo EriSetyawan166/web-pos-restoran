@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\Produk;
 use App\Models\Kategori;
+use Illuminate\Support\Facades\Auth;
 
-class AdminController extends Controller
+class KasirController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,12 +16,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        // @dd("jalan");
-        $data_user = User::count();
-        $kategori = Kategori::count();
-        $produk = Produk::count();
         $user = User::where('nip','=',Auth::user()->nip)->firstOrFail();
-        return view('admin.dashboard', compact('user', 'kategori', 'produk', 'data_user'));
+        return view('kasir.dashboard', compact('user'));
     }
 
     /**

@@ -42,21 +42,6 @@
             </a>
 					</li>
 
-					<li class="sidebar-item {{ (request()->is('admin/kategori')) ? 'active' : '' }}">
-						<a class="sidebar-link" href="{{route('kategori.index')}}">
-              <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Kategori</span>
-            </a>
-					</li>
-                    <li class="sidebar-item {{ (request()->is('admin/produk')) ? 'active' : '' }}">
-						<a class="sidebar-link" href="{{route('produk.index')}}">
-              <i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Produk</span>
-            </a>
-					</li>
-                    <li class="sidebar-item {{ (request()->is('admin/user')) ? 'active' : '' }}">
-						<a class="sidebar-link" href="{{route('user.index')}}">
-              <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
-            </a>
-					</li>
 
 
 
@@ -139,7 +124,7 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">{{$kategori}}</h1>
+												<h1 class="mt-1 mb-3">0</h1>
 											</div>
 										</div>
                                     </div>
@@ -157,7 +142,7 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">{{$produk}}</h1>
+												<h1 class="mt-1 mb-3">0</h1>
 											</div>
 										</div>
                                     </div>
@@ -175,7 +160,7 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">{{$data_user-1}}</h1>
+												<h1 class="mt-1 mb-3">0</h1>
 
 											</div>
 										</div>
