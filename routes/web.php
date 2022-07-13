@@ -4,6 +4,7 @@ use App\Http\Controllers\KasirController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ProdukMenuController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return (redirect()->intended('login'));
+    return (redirect()->intended('warung'));
 });
 
 Route::get('login', 'App\Http\Controllers\AuthController@index')->name('login');
@@ -39,6 +40,9 @@ Route::group(['middleware' => ['auth', 'cekleveluser'], 'prefix' => 'kasir'], fu
     Route::resource('dashboard', KasirController::class);
 });
 
+Route::group(['prefix' => 'warung'], function(){
+    Route::resource('/', MenuController::class);
+    Route::get('produk/{id}', 'App\Http\Controllers\MenuController@produk')->name('produk');
+});
 
 
-Route::resource('menu', MenuController::class);

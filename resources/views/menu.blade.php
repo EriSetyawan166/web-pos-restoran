@@ -50,7 +50,7 @@
 
                         @foreach ($kategori as $kg)
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="index.html">
+                            <a class="sidebar-link" href="{{url('warung/produk')}}/{{$kg->id_kategori}}">
                 <span class="align-middle">{{$kg->nama_kategori}}</span>
                 </a>
                         </li>
@@ -132,7 +132,7 @@
                             @foreach ($kategori as $kg)
                                 <div class="col-6 col-md-3">
                                     <div class="card">
-                                        <img class="card-img-top responsive" style="object-fit:cover; width: 100%;height: 100px;" src="{{asset('upload/foto_kategori')}}/{{$kg->foto_kategori}}" alt="Card image cap">
+                                        <a href="{{url('warung/produk')}}/{{$kg->id_kategori}}"><img class="card-img-top responsive" style="object-fit:cover; width: 100%;height: 100px;" src="{{asset('upload/foto_kategori')}}/{{$kg->foto_kategori}}" alt="Card image cap"></a>
                                         <div class="card-body">
                                             <p class="card-text text-center">{{$kg->nama_kategori}}</p>
                                         </div>

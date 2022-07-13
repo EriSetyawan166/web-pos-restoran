@@ -131,4 +131,6 @@ class ProdukController extends Controller
         $produk->delete();
         return back()->with('info', 'Data Berhasil Dihapus');
     }
+
+
 }

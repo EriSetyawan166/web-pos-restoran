@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kategori;
+use App\Models\produk;
+use Illuminate\Support\Facades\DB;
 
 class MenuController extends Controller
 {
@@ -82,5 +84,14 @@ class MenuController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function produk($id)
+    {
+        $produk = Produk::where('kategori_id', $id )->get();
+        $kategori = Kategori::where('id_kategori', $id)->firstorfail();
+        // @dd($produk);
+
+        return view('menu-produk', compact('produk', 'kategori'));
     }
 }
