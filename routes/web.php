@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\KasirController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProdukMenuController;
@@ -43,6 +44,7 @@ Route::group(['middleware' => ['auth', 'cekleveluser'], 'prefix' => 'kasir'], fu
 Route::group(['prefix' => 'warung'], function(){
     Route::resource('/', MenuController::class);
     Route::get('produk/{id}', 'App\Http\Controllers\MenuController@produk')->name('produk');
+    Route::resource('keranjang', KeranjangController::class);
 });
 
 

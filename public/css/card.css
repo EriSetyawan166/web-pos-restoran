@@ -2,4 +2,49 @@
     img.card-img-top.responsive{
         height: 170px !important;
     }
+
+    button.btn.btn-outline-danger.hp{
+        display: none;
+    }
+
+    button.btn.btn-outline-success.hp{
+        display: none;
+    }
+
+    span.jumlah.hp{
+        display: none !important;
+    }
+
+    .container.h-100.hp{
+        display: none !important;
+    }
+}
+
+@media screen and (max-width:667px) {
+    button.btn.btn-outline-danger.pc{
+        display: none;
+    }
+
+    button.btn.btn-outline-success.pc{
+        display: none;
+    }
+
+
+    span.jumlah.pc{
+        display: none !important;
+    }
+
+    button.btn.btn-outline-success.hp{
+        margin-bottom: 10px;
+    }
+
+    .keranjang{
+        display: none !important;
+    }
+
+    .container.h-100.pc{
+        display: none !important;
+    }
+
+
 }

@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kategori;
-use App\Models\produk;
-use Illuminate\Support\Facades\DB;
 
-class MenuController extends Controller
+class KeranjangController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +15,8 @@ class MenuController extends Controller
     public function index()
     {
         $kategori = Kategori::all();
-        return view('menu', compact('kategori'));
+        return view('keranjang', compact('kategori'));
+
     }
 
     /**
@@ -84,15 +83,5 @@ class MenuController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function produk($id)
-    {
-        $produk = Produk::where('kategori_id', $id )->get();
-        $kategori = Kategori::where('id_kategori', $id)->firstorfail();
-        // @dd($produk);
-        $data_kategori = Kategori::all();
-
-        return view('menu-produk', compact('produk', 'kategori', 'data_kategori'));
     }
 }

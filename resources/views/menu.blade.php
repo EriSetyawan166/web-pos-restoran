@@ -8,7 +8,7 @@
         <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
         <meta name="author" content="AdminKit">
         <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link rel="shortcut icon" href="{{asset('img/icons/icon-48x48.png')}}" />
 
@@ -27,7 +27,7 @@
         <div class="wrapper">
             <nav id="sidebar" class="sidebar js-sidebar">
                 <div class="sidebar-content js-simplebar">
-                    <a class="sidebar-brand" href="index.html">
+                    <a class="sidebar-brand" href="{{url('warung')}}">
             <span class="align-middle">Nama Restoran</span>
             </a>
 
@@ -38,19 +38,25 @@
 
 
 
-                        <li class="sidebar-item active">
-                            <a class="sidebar-link" href="index.html">
+                        <li class="sidebar-item {{ (request()->is('warung')) ? 'active' : '' }}">
+                            <a class="sidebar-link" href="{{url('warung')}}">
                 <i class="align-middle" data-feather="book-open"></i> <span class="align-middle">Menu</span>
                 </a>
                         </li>
 
+                        <li class="sidebar-item {{ (request()->is('warung/keranjang')) ? 'active' : '' }}">
+                            <a class="sidebar-link" href="{{url('warung/keranjang')}}">
+                <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Keranjang <span class="text-success">10</span></span>
+                </a>
+                        </li>
                         <li class="sidebar-header">
                             Kategori
                         </li>
 
+
                         @foreach ($kategori as $kg)
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{url('warung/produk')}}/{{$kg->id_kategori}}">
+                        <li class="sidebar-item {{ (request()->is('warung/produk')) ? 'active' : '' }}">
+                            <a class="sidebar-link " href="{{url('warung/produk')}}/{{$kg->id_kategori}}">
                 <span class="align-middle">{{$kg->nama_kategori}}</span>
                 </a>
                         </li>
@@ -76,48 +82,20 @@
                 <nav class="navbar navbar-expand navbar-light navbar-bg">
                     <a class="sidebar-toggle js-sidebar-toggle">
             <i class="hamburger align-self-center"></i>
+
             </a>
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav navbar-align">
 
-                    <div class="navbar-collapse collapse">
-                        <ul class="navbar-nav navbar-align">
+                    <a href="{{url('warung/keranjang')}}" class="btn"><i class="fa-solid fa-cart-plus end"></i><span class="indicator text-success">4</span></a>
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
-                    <i class="align-middle" data-feather="settings"></i>
-                </a>
-
-
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-                                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-                                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Log out</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Logout?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Apakah Anda Yakin untuk logout?.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="{{route('logout')}}">Logout</a>
-                    </div>
-                </div>
+                </ul>
             </div>
-        </div>
+
+            </nav>
+
+
+
 
 
 
