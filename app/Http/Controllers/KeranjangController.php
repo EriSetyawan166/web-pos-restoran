@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Kategori;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
+use Illuminate\Support\Facades\Redis;
 
 class KeranjangController extends Controller
 {
@@ -18,7 +19,7 @@ class KeranjangController extends Controller
     {
         $transaksinow = Transaksi::where('id_transaksi',session()->get('id'))->firstorfail();
         $transaksidetail = TransaksiDetail::where('transaksi_id',session()->get('id'))->get();
-        // @dd($transaksidetail);
+        // @dd($transaksidetail->jumlah);
         $kategori = Kategori::all();
         return view('keranjang', compact('kategori', 'transaksinow','transaksidetail'));
 
@@ -87,6 +88,42 @@ class KeranjangController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $info = Transaksi::where('id_transaksi',session()->get('id'))->firstorfail();
+        $transaksidetail = TransaksiDetail::where([['produk_id', $id], ['transaksi_id', session()->get('id')],])->first();
+
+        $harga = $transaksidetail->produk->harga * $transaksidetail->jumlah;
+        $transaksinow = Transaksi::where('id_transaksi',session()->get('id'))->update(array('total_harga' => $info->total_harga - $harga, 'total_item' => $info->total_item - $transaksidetail->jumlah));
+        $transaksidetail->delete();
+        return back();
+    }
+
+    public function tambah(Request $request, $id)
+    {
+        // @dd($id);
+        $infotransaksi = Transaksi::where('id_transaksi',session()->get('id'))->firstorfail();
+        $info = TransaksiDetail::where([['produk_id', $id], ['transaksi_id', session()->get('id')],])->first();
+        $jumlah = $info->jumlah + 1;
+        $jumlahtransaksi = $infotransaksi->total_item + 1;
+        // @dd($info->produk->harga);
+        $totalharga = $infotransaksi->total_harga + $info->produk->harga;
+        $transaksidetail = TransaksiDetail::where([['produk_id', $id], ['transaksi_id', session()->get('id')],])->update(['jumlah' => $jumlah]);
+        $transaksi = Transaksi::where('id_transaksi',session()->get('id'))->update(array('total_item' => $jumlahtransaksi, 'total_harga' => $totalharga));
+
+        return back();
+    }
+
+    public function kurang(Request $request,$id)
+    {
+        $infotransaksi = Transaksi::where('id_transaksi',session()->get('id'))->firstorfail();
+        $info = TransaksiDetail::where([['produk_id', $id], ['transaksi_id', session()->get('id')],])->first();
+        $jumlah = $info->jumlah - 1;
+        $jumlahtransaksi = $infotransaksi->total_item - 1;
+        // @dd($info->produk->harga);
+        $totalharga = $infotransaksi->total_harga - $info->produk->harga;
+        $transaksidetail = TransaksiDetail::where([['produk_id', $id], ['transaksi_id', session()->get('id')],])->update(['jumlah' => $jumlah]);
+        $transaksi = Transaksi::where('id_transaksi',session()->get('id'))->update(array('total_item' => $jumlahtransaksi, 'total_harga' => $totalharga));
+
+        return back();
     }
 }

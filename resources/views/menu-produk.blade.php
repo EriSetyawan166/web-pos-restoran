@@ -102,9 +102,9 @@
                     <h1 class="h3 mb-3"><strong>Kategori</strong> {{$kategori->nama_kategori}}</h1>
 
                     @php
-                        $i=0;
+                        $i=1;
 
-
+                        $db[0] = '';
                         //
                         foreach ($transaksidetail as $td) {
                             $db[$i] = $td->produk->nama_produk;

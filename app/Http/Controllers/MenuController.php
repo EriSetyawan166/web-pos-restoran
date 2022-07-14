@@ -111,7 +111,7 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 
     public function produk($id)
