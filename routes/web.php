@@ -45,6 +45,7 @@ Route::group(['prefix' => 'warung'], function(){
     Route::resource('/', MenuController::class);
     Route::get('produk/{id}', 'App\Http\Controllers\MenuController@produk')->name('produk');
     Route::resource('keranjang', KeranjangController::class);
+    Route::post('tambah', 'App\Http\Controllers\MenuController@tambah')->name('tambah');
 });
 
 

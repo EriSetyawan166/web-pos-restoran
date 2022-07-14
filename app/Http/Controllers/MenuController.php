@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Kategori;
 use App\Models\produk;
+use App\Models\test;
+use App\Models\Transaksi;
+use App\Models\TransaksiDetail;
 use Illuminate\Support\Facades\DB;
 
 class MenuController extends Controller
@@ -14,10 +17,35 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $transaksi = new Transaksi();
+
+        $jumtransaksi = Transaksi::count();
+        // @dd($jumtransaksi);
+        if (session()->get('id')) {
+
+        } else {
+            // @dd("jalan");
+            $request->session()->regenerate();
+            session([
+                'id' => $jumtransaksi+1,
+            ]);
+            $transaksi->id_transaksi = $jumtransaksi+1;
+            $transaksi->total_item = 0;
+            $transaksi->total_harga = 0;
+
+            $transaksi->save();
+        }
+
+
+        // @dd(session()->get('id'));
+        $transaksinow = Transaksi::where('id_transaksi',session()->get('id'))->firstorfail();
+        // @dd($transaksinow);
+        $jumlah = test::first();
         $kategori = Kategori::all();
-        return view('menu', compact('kategori'));
+        // @dd($jumlah->angka);
+        return view('menu', compact('kategori', 'jumlah', 'transaksinow'));
     }
 
     /**
@@ -88,11 +116,29 @@ class MenuController extends Controller
 
     public function produk($id)
     {
+        $transaksinow = Transaksi::where('id_transaksi',session()->get('id'))->firstorfail();
+        $transaksidetail = TransaksiDetail::where('transaksi_id',session()->get('id'))->get();
+        // @dd($transaksidetail);
         $produk = Produk::where('kategori_id', $id )->get();
         $kategori = Kategori::where('id_kategori', $id)->firstorfail();
-        // @dd($produk);
+        // @dd($transaksidetail->p);
         $data_kategori = Kategori::all();
 
-        return view('menu-produk', compact('produk', 'kategori', 'data_kategori'));
+        return view('menu-produk', compact('produk', 'kategori', 'data_kategori', 'transaksinow', 'transaksidetail'));
+    }
+
+    public function tambah(Request $request)
+    {
+        $transaksinow = Transaksi::where('id_transaksi',session()->get('id'))->firstorfail();
+        $transaksidetail = new TransaksiDetail();
+        $produk = Produk::where('nama_produk', $request->nama)->firstorfail();
+        $transaksidetail->transaksi_id = $transaksinow->id_transaksi;
+        $transaksidetail->produk_id = $produk->id_produk;
+        $transaksidetail->harga_satuan = $produk->harga;
+        $transaksidetail->jumlah = 1;
+        $jumlah = DB::table('transaksi')->update(['total_item'=>$transaksinow->total_item + 1, 'total_harga' => $transaksinow->total_harga + $transaksidetail->harga_satuan]);
+        $transaksidetail->save();
+        return back();
+        // @dd($request->all());
     }
 }

@@ -46,7 +46,7 @@
 
                     <li class="sidebar-item {{ (request()->is('warung/keranjang')) ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{url('warung/keranjang')}}">
-            <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Keranjang <span class="text-success">10</span></span>
+            <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Keranjang <span class="text-success">{{$transaksinow->total_item}}</span></span>
             </a>
                     </li>
                     <li class="sidebar-header">
@@ -87,7 +87,7 @@
         <div class="navbar-collapse collapse">
             <ul class="navbar-nav navbar-align">
 
-                <a href="{{url('warung/keranjang')}}" class="btn"><i class="fa-solid fa-cart-plus end"></i><span class="indicator text-success">4</span></a>
+                <a href="{{url('warung/keranjang')}}" class="btn"><i class="fa-solid fa-cart-plus end"></i><span class="indicator text-success">{{$transaksinow->total_item}}</span></a>
 
             </ul>
         </div>
@@ -104,57 +104,47 @@
 
                 <div class="container-fluid p-0">
 
-                    <div class="container  h-100 hp">
+                    <div class="container  h-100 hp mb-5">
                         <div class="row d-flex justify-content-center align-items-center h-100">
                           <div class="col-md-12 col-xl-10">
 
-                            <div class="card">
+                            <div class="card ">
                               <div class="card-header p-3">
                                 <h5 class="mb-0"><i class="fas fa-cart-shopping me-2"></i>Keranjang</h5>
                               </div>
                               <div class="card-body" data-mdb-perfect-scrollbar="true">
+                                @foreach ($transaksidetail as $td)
                                 <div class="d-flex justify-content-between">
-                                    <h4>2</h4>
-                                    <h4 class="text-success">Rp.20,000</h4>
+                                    <h4>{{$td->jumlah}}</h4>
+                                    <h4 class="text-success">Rp{{number_format($td->harga_satuan*$td->jumlah)}}</h4>
                                 </div>
                                 <div class="d-flex justify-content-center pt-2">
                                     <div class="col">
-                                        <img src="{{asset('upload/foto_kategori/1657614434-kelp_shake.jpg')}}" alt="" style="width: 90px">
+                                        <img src="{{asset('upload/foto_produk')}}/{{$td->produk->foto_produk}}" alt="" style="width: 90px">
                                         <div class="row mt-2">
-                                            <div><a href="#!" data-mdb-toggle="tooltip" title="Done"><i
-                                                class="fas fa-add text-success me-3"></i></a>
+                                            <div>
+                                                <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i
+                                                    class="fas fa-trash-alt text-danger me-3"></i></a>
                                             <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i
                                                 class="fas fa-minus text-danger me-3"></i></a>
-                                            <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i
-                                                class="fas fa-trash-alt text-danger"></i></a> </div>
-                                        </div>
-                                    </div>
-                                    <h6 class="ps-2 text-left">Kelp shakes</h6>
-                                </div>
+                                                <a href="#!" data-mdb-toggle="tooltip" title="Done"><i
+                                                    class="fas fa-add text-success me-3"></i></a></div>
 
-                                <hr>
-                                <div class="d-flex justify-content-between">
-                                    <h4>2</h4>
-                                    <h4 class="text-success">Rp.20,000</h4>
-                                </div>
-                                <div class="d-flex justify-content-center pt-2">
-                                    <div class="col">
-                                        <img src="{{asset('upload/foto_kategori/1657614434-kelp_shake.jpg')}}" alt="" style="width: 90px">
-                                        <div class="row mt-2">
-                                            <div><a href="#!" data-mdb-toggle="tooltip" title="Done"><i
-                                                class="fas fa-add text-success me-3"></i></a>
-                                            <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i
-                                                class="fas fa-minus text-danger me-3"></i></a>
-                                            <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i
-                                                class="fas fa-trash-alt text-danger"></i></a> </div>
                                         </div>
                                     </div>
-                                    <h6 class="ps-2 text-left">Kelp shakes</h6>
+                                    <h6 class="ps-2 text-left">{{$td->produk->nama_produk}}</h6>
                                 </div>
+                                <hr>
+                                @endforeach
+
+
+
+
+
                                 <h5 class="mt-5">Jumlah Pesanan</h5>
                                 <div class="d-flex justify-content-between">
                                     <p>Sub Total:</p>
-                                    <h3 class="text-success">Rp20,000</h3>
+                                    <h3 class="text-success">Rp{{($td->transaksi->total_harga)}}</h3>
                                 </div>
 
 
@@ -215,63 +205,41 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr class="fw-normal">
-                                      <th>
-                                        <img src="{{asset('upload/foto_produk/1657550906-kelp_shake.jpg')}}"
-                                          class="shadow-1-strong " alt="avatar 1"
-                                          style="width: 55px; height: auto;">
-                                        <span class="ms-2">Kelp Shake</span>
-                                      </th>
-                                      <td class="align-middle">
-                                        <span>Minuman</span>
-                                      </td>
-                                      <td class="align-middle">
-                                        <h6 class="mb-0">2</h6>
-                                      </td>
-                                      <td class="align-middle">
-                                        <h6 class="mb-0">Rp. 10000</h6>
-                                      </td>
-                                      <td class="align-middle">
-                                        <a href="#!" data-mdb-toggle="tooltip" title="Done"><i
-                                            class="fas fa-add text-success me-3"></i></a>
-                                        <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i
-                                            class="fas fa-minus text-danger me-3"></i></a>
-                                        <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i
-                                            class="fas fa-trash-alt text-danger"></i></a>
-                                      </td>
-                                    </tr>
+                                    @foreach ($transaksidetail as $td)
                                     <tr class="fw-normal">
                                         <th>
-                                          <img src="{{asset('upload/foto_produk/1657685764-krabby_patty.jpg')}}"
+                                          <img src="{{asset('upload/foto_produk')}}/{{$td->produk->foto_produk}}"
                                             class="shadow-1-strong " alt="avatar 1"
                                             style="width: 55px; height: auto;">
-                                          <span class="ms-2">Krabby Patty</span>
+                                          <span class="ms-2">{{$td->produk->nama_produk}}</span>
                                         </th>
                                         <td class="align-middle">
-                                          <span>Makanan</span>
+                                          <span>{{$td->produk->kategori->nama_kategori}}</span>
                                         </td>
                                         <td class="align-middle">
-                                          <h6 class="mb-0">4</h6>
+                                          <h6 class="mb-0">{{$td->jumlah}}</h6>
                                         </td>
                                         <td class="align-middle">
-                                          <h6 class="mb-0">Rp. 15000</h6>
+                                          <h6 class="mb-0">Rp{{number_format($td->harga_satuan)}}</h6>
                                         </td>
                                         <td class="align-middle">
-                                          <a href="#!" data-mdb-toggle="tooltip" title="Done"><i
-                                              class="fas fa-add text-success me-3"></i></a>
+                                          <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i
+                                              class="fas fa-trash-alt text-danger me-3"></i></a>
                                           <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i
                                               class="fas fa-minus text-danger me-3"></i></a>
-                                          <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i
-                                              class="fas fa-trash-alt text-danger"></i></a>
+                                              <a href="#!" data-mdb-toggle="tooltip" title="Done"><i
+                                                  class="fas fa-add text-success me-3"></i></a>
+
                                         </td>
                                       </tr>
+                                    @endforeach
 
-                                  </tbody>
+                                                                      </tbody>
                                 </table>
                                 <h5 class="mt-5">Jumlah Pesanan</h5>
                                 <div class="d-flex justify-content-between">
                                     <p>Sub Total:</p>
-                                    <h3 class="text-success">Rp20,000</h3>
+                                    <h3 class="text-success">Rp{{number_format($td->transaksi->total_harga)}}</h3>
                                 </div>
                               </div>
                               <div class="card-footer text-end p-2">

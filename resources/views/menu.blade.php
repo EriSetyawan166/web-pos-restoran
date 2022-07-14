@@ -46,7 +46,7 @@
 
                         <li class="sidebar-item {{ (request()->is('warung/keranjang')) ? 'active' : '' }}">
                             <a class="sidebar-link" href="{{url('warung/keranjang')}}">
-                <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Keranjang <span class="text-success">10</span></span>
+                <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Keranjang <span class="text-success jumlah">{{$transaksinow->total_item}}</span></span>
                 </a>
                         </li>
                         <li class="sidebar-header">
@@ -87,7 +87,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav navbar-align">
 
-                    <a href="{{url('warung/keranjang')}}" class="btn"><i class="fa-solid fa-cart-plus end"></i><span class="indicator text-success">4</span></a>
+                    <a href="{{url('warung/keranjang')}}" class="btn"><i class="fa-solid fa-cart-plus end"></i><span class="indicator text-success">{{$transaksinow->total_item}}</span></a>
 
                 </ul>
             </div>

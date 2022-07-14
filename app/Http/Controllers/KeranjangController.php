@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kategori;
+use App\Models\Transaksi;
+use App\Models\TransaksiDetail;
 
 class KeranjangController extends Controller
 {
@@ -14,8 +16,11 @@ class KeranjangController extends Controller
      */
     public function index()
     {
+        $transaksinow = Transaksi::where('id_transaksi',session()->get('id'))->firstorfail();
+        $transaksidetail = TransaksiDetail::where('transaksi_id',session()->get('id'))->get();
+        // @dd($transaksidetail);
         $kategori = Kategori::all();
-        return view('keranjang', compact('kategori'));
+        return view('keranjang', compact('kategori', 'transaksinow','transaksidetail'));
 
     }
 

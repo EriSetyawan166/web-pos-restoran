@@ -45,7 +45,7 @@
                     </li>
                     <li class="sidebar-item {{ (request()->is('warung/keranjang/')) ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{url('warung/keranjang')}}">
-            <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Keranjang  <span class="text-success">10</span></span>
+            <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Keranjang  <span class="text-success">{{$transaksinow->total_item}}</span></span>
             </a>
                     </li>
 
@@ -86,7 +86,7 @@
         <div class="navbar-collapse collapse">
             <ul class="navbar-nav navbar-align">
 
-                <a href="{{url('warung/keranjang')}}" class="btn"><i class="fa-solid fa-cart-plus end "></i><span class="indicator text-success">4</span></a>
+                <a href="{{url('warung/keranjang')}}" class="btn"><i class="fa-solid fa-cart-plus end "></i><span class="indicator text-success">{{$transaksinow->total_item}}</span></a>
 
             </ul>
         </div>
@@ -101,36 +101,80 @@
                 <div class="container-fluid p-0">
                     <h1 class="h3 mb-3"><strong>Kategori</strong> {{$kategori->nama_kategori}}</h1>
 
+                    @php
+                        $i=0;
+
+
+                        //
+                        foreach ($transaksidetail as $td) {
+                            $db[$i] = $td->produk->nama_produk;
+                            $i++;
+                        }
+
+
+
+
+
+
+                        $i=0;
+
+                    @endphp
 
                     <div class="row">
                         @foreach ($produk as $pd)
-
-
                         <div class="col-lg-6">
+                        <form action="{{url('warung/tambah')}}" method="POST">
+                            @csrf
+
                             <div class="card p-3 pt-4 pb-4">
                             <div class="d-flex align-items-center">
-                                <div class="col-md-4">
+                                <div class="col-md-4" style="width: 150px" >
                                     <img class="flex-shrink-0 img-thumbnail rounded produk" src="{{asset('upload/foto_produk')}}/{{$pd->foto_produk}}" alt="" style="height: 90px">
                                 </div>
-                                <div class="col-md-4">
-                                    <span class="ps-2">{{$pd->nama_produk}}</span>
-                                            <span class="ps-2 text-primary">Rp.{{$pd->harga}}</span>
 
-                                </div>
+                                    <div class="col-md-4">
+                                        <span class="ps-2">{{$pd->nama_produk}}</span>
+                                        <input type="hidden" name="nama" value="{{$pd->nama_produk}}">
+                                                <span class="ps-2 text-primary">Rp{{number_format($pd->harga)}}</span>
+
+                                    </div>
+
+                                    @php
+                                        $namaproduk = $pd->nama_produk
+                                    @endphp
+                                    {{-- {{$db[$i]}} --}}
+                                    {{-- {{$transaksidetail->produk->nama_produk}} --}}
+                                    {{-- @foreach ($db as $item) --}}
 
 
-                                <div class="col-md-4">
-                                    <a class="btn btn-primary" ><i class="fas fa-fw fa-add"></i><span class="keranjang"> Keranjang</span></a>
-                                </div>
+                                    <div class="col-md-4">
+                                        @if (in_array($namaproduk,$db))
+                                        <button disabled type="submit" class="btn btn-secondary" ><i class="fas fa-fw fa-check"></i><span class="keranjang"> Ditambahkan</span></button>
+                                        {{-- </div>
+                                        @continue --}}
+                                        @else
+                                        <button type="submit" class="btn btn-primary" ><i class="fas fa-fw fa-add"></i><span class="keranjang"> Keranjang</span></button>
+                                        @endif
+
+                                    </div>
+                                    {{-- @endforeach --}}
+                                </form>
 
 
 
 
 
                             </div>
+
+
                             </div>
+
                         </div>
+                        @php
+
+                        @endphp
                         @endforeach
+
 
                     </div>
 
