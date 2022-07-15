@@ -207,11 +207,10 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                                <form action="#" method="GET">
-                                    {{ csrf_field() }}
-                                    <input type="hidden" name="_method">
-                                    <button class="btn btn-primary" type="submit">Ya</button>
-                                </form>
+
+
+                                <a class="btn btn-primary" href="{{url('warung/receipt')}}">Ya</a>
+
 
                             </div>
                             </div>

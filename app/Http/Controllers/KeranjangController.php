@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\Kategori;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Redis;
 
 class KeranjangController extends Controller
@@ -125,5 +127,14 @@ class KeranjangController extends Controller
         $transaksi = Transaksi::where('id_transaksi',session()->get('id'))->update(array('total_item' => $jumlahtransaksi, 'total_harga' => $totalharga));
 
         return back();
+    }
+
+    public function receipt(Request $request)
+    {
+        $date = Carbon::now();
+        $pesanan = TransaksiDetail::where('transaksi_id',session()->get('id'))->get();
+        // @dd($pesanan);
+        $transaksinow = Transaksi::where('id_transaksi',session()->get('id'))->firstorfail();
+        return view('receipt', compact('transaksinow', 'date', 'pesanan'));
     }
 }

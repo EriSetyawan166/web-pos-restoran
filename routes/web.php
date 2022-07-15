@@ -48,6 +48,7 @@ Route::group(['prefix' => 'warung'], function(){
     Route::post('tambah', 'App\Http\Controllers\MenuController@tambah')->name('tambah');
     Route::get('keranjang-tambah/{id}', 'App\Http\Controllers\KeranjangController@tambah')->name('keranjang-tambah');
     Route::get('keranjang-kurang/{id}','App\Http\Controllers\KeranjangController@kurang')->name('keranjang-kurang');
+    Route::get('receipt', 'App\Http\Controllers\KeranjangController@receipt')->name('receipt');
 });
 
 
