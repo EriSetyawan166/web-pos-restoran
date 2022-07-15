@@ -17,8 +17,8 @@
 
             <div class="row">
 
-                <div class="col-xl-12 d-flex mb-5">
-                    <div class="w-100">
+                <div class="col-xl-12 d-flex mb-5 d-flex justify-content-center" >
+                    <div class="">
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="card shadow">
