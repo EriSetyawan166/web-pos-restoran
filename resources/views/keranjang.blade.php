@@ -124,7 +124,7 @@
                                         <div class="row mt-2">
                                             <div>
                                                 <button style="background-color: transparent;border-color: transparent;width: 11%"><a  href="#!" data-mdb-toggle="tooltip" title="Remove"><i
-                                                    class="fas fa-trash-alt text-danger me-3" data-toggle="modal" data-target="#hapus_produk{{$td->produk->id_produk}}"></i></a></button>
+                                                    class="fas fa-trash-alt text-danger me-3" data-toggle="modal" data-target="#hapus_produkhp{{$td->produk->id_produk}}"></i></a></button>
                                                     @if ($td->jumlah ==1)
                                                     <button style="background-color: transparent;border-color: transparent;width: 11%" ><a onclick="return false" href="{{url('warung/keranjang-kurang')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Remove"><i
                                                         class="fas fa-minus text-danger me-3"></i></a></button>
@@ -143,7 +143,7 @@
                                 <hr>
                                 @endforeach
                                 @foreach ($transaksidetail as $td)
-                                    <div class="modal fade" id="hapus_produk{{$td->produk->id_produk}}" tabindex="-1" role="dialog" aria-labelledby="hapus-transaksi" aria-hidden="true">
+                                    <div class="modal fade" id="hapus_produkhp{{$td->produk->id_produk}}" tabindex="-1" role="dialog" aria-labelledby="hapus-transaksi" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                             <div class="modal-header">
@@ -261,7 +261,7 @@
                                         <td class="align-middle">
 
                                           <a  data-mdb-toggle="tooltip" title="Remove"><i
-                                              class="fas fa-trash-alt text-danger me-3" data-toggle="modal" data-target="#hapus_produk{{$td->produk->id_produk}}"></i></a>
+                                              class="fas fa-trash-alt text-danger me-3" data-toggle="modal" data-target="#hapus_produkpc{{$td->produk->id_produk}}"></i></a>
                                               @if ($td->jumlah == 1)
                                               <button style="background-color: transparent;border-color: transparent"><a onclick="return false" href="{{url('warung/keranjang-kurang')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Remove"><i
                                                 class="fas fa-minus text-danger me-3"></i></a></button>
@@ -280,7 +280,7 @@
                                       </tr>
                                     @endforeach
                                     @foreach ($transaksidetail as $td)
-                                    <div class="modal fade" id="hapus_produk{{$td->produk->id_produk}}" tabindex="-1" role="dialog" aria-labelledby="hapus-transaksi" aria-hidden="true">
+                                    <div class="modal fade" id="hapus_produkpc{{$td->produk->id_produk}}" tabindex="-1" role="dialog" aria-labelledby="hapus-transaksi" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                             <div class="modal-header">

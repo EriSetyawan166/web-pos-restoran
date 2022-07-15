@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Kategori;
 use App\Models\produk;
 use App\Models\test;
+use Carbon\Carbon;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
+use DateTime;
 use Illuminate\Support\Facades\DB;
 
 class MenuController extends Controller
@@ -19,9 +21,14 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
+        // @dd();
         $transaksi = new Transaksi();
 
         $jumtransaksi = Transaksi::count();
+        $dt = Carbon::now();
+        $dt = $dt->format('dmY');
+        $dt = $dt. str_pad($jumtransaksi+1, 5, '0', STR_PAD_LEFT);
+
         // @dd($jumtransaksi);
         if (session()->get('id')) {
 
@@ -29,9 +36,9 @@ class MenuController extends Controller
             // @dd("jalan");
             $request->session()->regenerate();
             session([
-                'id' => $jumtransaksi+1,
+                'id' => $dt,
             ]);
-            $transaksi->id_transaksi = $jumtransaksi+1;
+            $transaksi->id_transaksi = $dt;
             $transaksi->total_item = 0;
             $transaksi->total_harga = 0;
 
@@ -111,7 +118,7 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        
+
     }
 
     public function produk($id)
