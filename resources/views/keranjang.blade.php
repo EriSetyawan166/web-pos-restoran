@@ -120,21 +120,22 @@
                                 </div>
                                 <div class="d-flex justify-content-center pt-2">
                                     <div class="col">
-                                        <img src="{{asset('upload/foto_produk')}}/{{$td->produk->foto_produk}}" alt="" style="width: 90px">
-                                        <div class="row mt-2">
-                                            <div>
-                                                <button style="background-color: transparent;border-color: transparent;width: 11%"><a  href="#!" data-mdb-toggle="tooltip" title="Remove"><i
-                                                    class="fas fa-trash-alt text-danger me-3" data-toggle="modal" data-target="#hapus_produkhp{{$td->produk->id_produk}}"></i></a></button>
+                                        <img src="{{asset('upload/foto_produk')}}/{{$td->produk->foto_produk}}" alt="" style="width: 120px">
+                                        <div class="mt-2 d-flex ">
+
+                                                <button class="pr-2" style="background-color: transparent;border-color: transparent;width: 11%"><a  href="#!" data-mdb-toggle="tooltip" title="Remove"><i
+                                                    class="fas fa-trash-alt text-danger " data-toggle="modal" data-target="#hapus_produkhp{{$td->produk->id_produk}}"></i></a></button>
+
                                                     @if ($td->jumlah ==1)
-                                                    <button style="background-color: transparent;border-color: transparent;width: 11%" ><a onclick="return false" href="{{url('warung/keranjang-kurang')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Remove"><i
-                                                        class="fas fa-minus text-danger me-3"></i></a></button>
+                                                    <button class="pl-2" style="background-color: transparent;border-color: transparent;width: 11%" ><a onclick="return false" href="{{url('warung/keranjang-kurang')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Remove"><i
+                                                        class="fas fa-minus text-danger"></i></a></button>
                                                     @else
                                                     <button style="background-color: transparent;border-color: transparent;width: 11%" ><a href="{{url('warung/keranjang-kurang')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Remove"><i
-                                                        class="fas fa-minus text-danger me-3"></i></a></button>
+                                                        class="fas fa-minus text-danger"></i></a></button>
                                                     @endif
 
                                                 <button style="background-color: transparent;border-color: transparent;"> <a  href="{{url('warung/keranjang-tambah')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Done"><i
-                                                    class="fas fa-add text-success me-3"></i></a></button></div>
+                                                    class="fas fa-add text-success "></i></a></button>
 
                                         </div>
                                     </div>

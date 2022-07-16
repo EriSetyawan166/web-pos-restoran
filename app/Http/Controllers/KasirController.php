@@ -88,7 +88,7 @@ class KasirController extends Controller
 
     public function acc(Request $request)
     {
-        @dd($request->id);
+        // @dd($request->id);
         return back()->with('success', 'transaksi berhasil');
     }
 }
