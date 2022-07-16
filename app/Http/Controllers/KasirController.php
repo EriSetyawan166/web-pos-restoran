@@ -72,7 +72,7 @@ class KasirController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
@@ -84,5 +84,11 @@ class KasirController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function acc(Request $request)
+    {
+        @dd($request->id);
+        return back()->with('success', 'transaksi berhasil');
     }
 }

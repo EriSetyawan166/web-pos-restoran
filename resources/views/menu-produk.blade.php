@@ -127,17 +127,21 @@
                             @csrf
 
                             <div class="card p-3 pt-4 pb-4">
-                            <div class="d-flex align-items-center">
-                                <div class="col-md-4" style="width: 150px" >
-                                    <img class="flex-shrink-0 img-thumbnail rounded produk" src="{{asset('upload/foto_produk')}}/{{$pd->foto_produk}}" alt="" style="height: 90px">
-                                </div>
-
-                                    <div class="col-md-4">
-                                        <span class="ps-2">{{$pd->nama_produk}}</span>
-                                        <input type="hidden" name="nama" value="{{$pd->nama_produk}}">
-                                                <span class="ps-2 text-primary">Rp{{number_format($pd->harga)}}</span>
-
+                            <div class="d-flex align-items-center"  style="height: 100px">
+                                    <div class="p-2">
+                                        <img class="flex-shrink-0 img-thumbnail rounded produk img-fluid" src="{{asset('upload/foto_produk')}}/{{$pd->foto_produk}}" alt="" style="width: 120px">
                                     </div>
+
+
+
+                                    <div class="p-2" >
+                                        <span>{{$pd->nama_produk}}</span>
+                                        <input type="hidden" name="nama" value="{{$pd->nama_produk}}">
+                                        <span class="text-primary">Rp{{number_format($pd->harga)}}</span>
+                                    </div>
+
+
+
 
                                     @php
                                         $namaproduk = $pd->nama_produk
@@ -147,7 +151,7 @@
                                     {{-- @foreach ($db as $item) --}}
 
 
-                                    <div class="col-md-4">
+                                    <div class="p-2 ml-2" style="margin-left: auto !important">
                                         @if (in_array($namaproduk,$db))
                                         <button disabled type="submit" class="btn btn-secondary" ><i class="fas fa-fw fa-check"></i><span class="keranjang"> Ditambahkan</span></button>
                                         {{-- </div>
