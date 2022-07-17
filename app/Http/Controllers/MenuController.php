@@ -30,19 +30,21 @@ class MenuController extends Controller
         $dt = $dt. str_pad($jumtransaksi+1, 5, '0', STR_PAD_LEFT);
 
         // @dd($jumtransaksi);
+
         if (session()->get('id')) {
 
         } else {
             // @dd("jalan");
-            $request->session()->regenerate();
-            session([
+            $request->session()->put([
                 'id' => $dt,
             ]);
+
             $transaksi->id_transaksi = $dt;
             $transaksi->total_item = 0;
             $transaksi->total_harga = 0;
 
             $transaksi->save();
+            // @dd(session()->get('id'));
         }
 
 
@@ -124,6 +126,7 @@ class MenuController extends Controller
     public function produk($id)
     {
         $transaksinow = Transaksi::where('id_transaksi',session()->get('id'))->firstorfail();
+
         $transaksidetail = TransaksiDetail::where('transaksi_id',session()->get('id'))->get();
         // @dd($transaksidetail);
         $produk = Produk::where('kategori_id', $id )->get();
@@ -143,7 +146,7 @@ class MenuController extends Controller
         $transaksidetail->produk_id = $produk->id_produk;
         $transaksidetail->harga_satuan = $produk->harga;
         $transaksidetail->jumlah = 1;
-        $jumlah = DB::table('transaksi')->update(['total_item'=>$transaksinow->total_item + 1, 'total_harga' => $transaksinow->total_harga + $transaksidetail->harga_satuan]);
+        $jumlah = DB::table('transaksi')->where('id_transaksi',session()->get('id'))->update(['total_item'=>$transaksinow->total_item + 1, 'total_harga' => $transaksinow->total_harga + $transaksidetail->harga_satuan]);
         $transaksidetail->save();
         return back();
         // @dd($request->all());

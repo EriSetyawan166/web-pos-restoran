@@ -185,7 +185,7 @@
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">Visitors</h5>
+														<h5 class="card-title">Jmlah transaksi</h5>
 													</div>
 
 													<div class="col-auto">
@@ -194,13 +194,24 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">14.212</h1>
-												<div class="mb-0">
-													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-													<span class="text-muted">Since last week</span>
-												</div>
+												<h1 class="mt-1 mb-3">{{$transaksi}}</h1>
+
 											</div>
 										</div>
+                                    </div>
+                                    <div class="col-12 col-lg-12">
+                                        <div class="card flex-fill w-100">
+                                            <div class="card-header">
+                                                <h5 class="card-title">Grafik Pendapatan tahun {{$date->format('Y')}}</h5>
+                                                {{-- @dd(json_encode($data_pendapatan)) --}}
+
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="chart">
+                                                    <canvas id="chartjs-line"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
 
@@ -219,42 +230,101 @@
 				</div>
 			</main>
 
-			<footer class="footer">
-				<div class="container-fluid">
-					<div class="row text-muted">
-						<div class="col-6 text-start">
-							<p class="mb-0">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> &copy;
-							</p>
-						</div>
-						<div class="col-6 text-end">
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</footer>
+
 		</div>
 	</div>
 
-	<script src="{{asset('js/app.js')}}"></script>
+	{{-- <script src="{{asset('js/app.js')}}"></script> --}}
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="{{asset('js/app.js')}}"></script>
 
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Line chart
+        new Chart(document.getElementById("chartjs-line"), {
+            type: "line",
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
+                datasets: [{
+                    label: "Pendapatan (Rp)",
+                    fill: true,
+                    backgroundColor: "transparent",
+                    borderColor: window.theme.primary,
+                    data: {{json_encode($data_pendapatan)}}
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    intersect: false
+                },
+                hover: {
+                    intersect: true
+                },
+                plugins: {
+                    filler: {
+                        propagate: false
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        reverse: true,
+                        gridLines: {
+                            color: "rgba(0,0,0,0.05)"
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            stepSize: 100000
+                        },
+                        display: true,
+                        borderDash: [5, 5],
+                        gridLines: {
+                            color: "rgba(0,0,0,0)",
+                            fontColor: "#fff"
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Pie chart
+        new Chart(document.getElementById("chartjs-pie"), {
+            type: "pie",
+            data: {
+                labels: ["Social", "Search Engines", "Direct", "Other","test","ahi"],
+                datasets: [{
+                    data: [260, 125, 54, 146,50,200],
+                    backgroundColor: [
+                        window.theme.primary,
+                        window.theme.warning,
+                        window.theme.danger,
+                        "#000000"
+                    ],
+                    borderColor: "transparent"
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                }
+            }
+        });
+    });
+</script>
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");

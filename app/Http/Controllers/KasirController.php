@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Kategori;
 use App\Models\Transaksi;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class KasirController extends Controller
 {
@@ -17,8 +18,11 @@ class KasirController extends Controller
      */
     public function index()
     {
+        $transaksi = Transaksi::where('id_kasir',Auth::user()->nip)->count();
+        $pendapatan = Transaksi::where([['status', 'selesai'], ['id_kasir', Auth::user()->nip],])->sum('total_harga');
+        // @dd($pendapatan);
         $user = User::where('nip','=',Auth::user()->nip)->firstOrFail();
-        return view('kasir.dashboard', compact('user'));
+        return view('kasir.dashboard', compact('user', 'transaksi', 'pendapatan'));
     }
 
     /**
@@ -91,10 +95,12 @@ class KasirController extends Controller
     {
         // @dd($request->id);
         $kasir = User::where('nip','=',Auth::user()->nip)->firstOrFail();
-        $transaksi = Transaksi::findorfail($request->id);
-        $transaksi->status = "selesai";
-        $transaksi->id_kasir = $kasir->nip;
-        $transaksi->save();
+        // $transaksi = Transaksi::where('id_transaksi', $request->id)->firstorfail();
+        $transaksi= DB::table('transaksi')->where('id_transaksi', $request->id)->update(['status'=>'selesai', 'id_kasir' => $kasir->nip]);
+        // @dd($transaksi);
+        // $transaksi->status = "selesai";
+        // $transaksi->id_kasir = $kasir->nip;
+        // $transaksi->save();
         // @dd(session()->all());
         // @dd(session()->get('id'));
 
