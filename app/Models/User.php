@@ -45,4 +45,11 @@ class User extends Authenticatable
 
     protected $primaryKey = "nip";
     public $incrementing = false;
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
 }
+
+

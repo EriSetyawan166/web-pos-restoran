@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('total_item')->default(0);
             $table->integer('total_harga')->default(0);
             $table->integer('id_kasir')->nullable();
+            $table->foreign('id_kasir')->references('nip')->on('users');
+            $table->String('status')->nullable()->default('aktif');
             $table->timestamps();
         });
     }

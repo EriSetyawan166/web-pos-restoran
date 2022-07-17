@@ -131,10 +131,19 @@ class KeranjangController extends Controller
 
     public function receipt(Request $request)
     {
+        // $request->session()->forget('id');
+
         $date = Carbon::now();
         $pesanan = TransaksiDetail::where('transaksi_id',session()->get('id'))->get();
         // @dd($pesanan);
         $transaksinow = Transaksi::where('id_transaksi',session()->get('id'))->firstorfail();
         return view('receipt', compact('transaksinow', 'date', 'pesanan'));
+    }
+
+    public function selesai(Request $request)
+    {
+        $request->session()->flush();
+        // Auth::logout();
+        return Redirect('warung');
     }
 }

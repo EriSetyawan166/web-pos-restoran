@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('nama_produk');
             $table->string('foto_produk');
             $table->integer('harga');
-            $table->integer('stok');
+            $table->string('status')->default('tersedia');
             $table->timestamps();
         });
     }

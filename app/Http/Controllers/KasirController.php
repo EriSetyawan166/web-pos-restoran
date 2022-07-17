@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Kategori;
+use App\Models\Transaksi;
 use Illuminate\Support\Facades\Auth;
 
 class KasirController extends Controller
@@ -89,6 +90,14 @@ class KasirController extends Controller
     public function acc(Request $request)
     {
         // @dd($request->id);
+        $kasir = User::where('nip','=',Auth::user()->nip)->firstOrFail();
+        $transaksi = Transaksi::findorfail($request->id);
+        $transaksi->status = "selesai";
+        $transaksi->id_kasir = $kasir->nip;
+        $transaksi->save();
+        // @dd(session()->all());
+        // @dd(session()->get('id'));
+
         return back()->with('success', 'transaksi berhasil');
     }
 }

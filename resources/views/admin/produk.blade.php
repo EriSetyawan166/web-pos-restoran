@@ -170,7 +170,11 @@
                                                                 <input type="number" id="harga" name="harga" placeholder="Masukkan harga produk" class="form-control" required autocomplete="off">
                                                             </div>
                                                             <div class="form-group mt-3">
-                                                                <input type="number" id="stok" name="stok" placeholder="Masukkan stok produk" class="form-control" required autocomplete="off">
+                                                                <select class="form-control select2 mx-auto mt-2" style="width: 100%" name="status" id="status">
+                                                                    <option selected disabled value="">Pilih Status</option>
+                                                                    <option value="Tersedia">Tersedia</option>
+                                                                    <option value="Tersedia">Kosong</option>
+                                                                </select>
                                                             </div>
 
                                                             <div class="form-group mt-3">
@@ -197,7 +201,7 @@
                                                                 <th>kategori</th>
                                                                 <th>foto</th>
                                                                 <th>harga</th>
-                                                                <th>stok</th>
+                                                                <th>status</th>
                                                                 <th>aksi</th>
                                                             </tr>
                                                         </thead>
@@ -211,7 +215,7 @@
                                                                 <td>{{$pd->kategori->nama_kategori}}</td>
                                                                 <td><img src="{{asset('upload/foto_produk')}}/{{$pd->foto_produk}}" class="img-thumbnail" width="100" height="100" alt=""></td>
                                                                 <td>{{$pd->harga}}</td>
-                                                                <td>{{$pd->stok}}</td>
+                                                                <td>{{$pd->status}}</td>
                                                                 <td class=""><a href="" class="btn btn-warning btn-sm mr-1" data-toggle="modal" data-target="#ubah_produk{{$pd->id_produk}}"><i class="fa-solid fa-pen to-square mr-1"></i>Ubah</a>
                                                                     <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapus_produk{{$pd->id_produk}}"><i class="fa-solid fa-trash to-square mr-1"></i>Hapus</a>
                                                                 </td>
@@ -274,8 +278,13 @@
                                                                         <div class="form-group mt-3">
                                                                             <input type="number" id="harga" name="harga" placeholder="Masukkan harga produk" class="form-control" required autocomplete="off" value="{{$pd->harga}}">
                                                                         </div>
+
                                                                         <div class="form-group mt-3">
-                                                                            <input type="number" id="stok" name="stok" placeholder="Masukkan stok produk" class="form-control" required autocomplete="off" value="{{$pd->stok}}">
+                                                                            <select class="form-control select2 mx-auto mt-2" style="width: 100%" name="status" id="status">
+                                                                                <option selected disabled value="">Pilih Status</option>
+                                                                                <option @if ($pd->status == "Tersedia") @selected(true) @endif value="Tersedia">Tersedia</option>
+                                                                                <option @if ($pd->status == "Kosong") @selected(true) @endif value="Kosong">Kosong</option>
+                                                                            </select>
                                                                         </div>
 
                                                                         <div class="form-group mt-3">

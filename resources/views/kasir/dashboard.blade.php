@@ -50,7 +50,7 @@
 		</nav>
 
 		<div class="main">
-			<nav class="navbar navbar-expand navbar-light navbar-bg">
+            <nav class="navbar navbar-expand navbar-light navbar-bg">
 				<a class="sidebar-toggle js-sidebar-toggle">
           <i class="hamburger align-self-center"></i>
         </a>
@@ -118,7 +118,7 @@
                                             <div id="reader" width="600px"></div>
                                             <form action="{{route('acc')}}" method="POST">
                                                 @csrf
-                                            <input type="text" id="result" name="id">
+                                            <input hidden type="text" id="result" name="id">
                                             <button hidden  id="acc" ></button>
                                             </form>
                                         </div>
@@ -135,9 +135,10 @@
 		</div>
 	</div>
 
-	<script src="{{asset('js/app.js')}}"></script>
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript">
 
+    <script src="{{asset('js/app.js')}}"></script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript">
+    <script src="{{asset('js/app.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -162,7 +163,7 @@ function onScanFailure(error) {
 
 let html5QrcodeScanner = new Html5QrcodeScanner(
   "reader",
-  { fps: 10, qrbox: {width: 300, height: 100    } },
+  { fps: 10, qrbox: {width: 300, height: 300    } },
   /* verbose= */ false);
 html5QrcodeScanner.render(onScanSuccess, onScanFailure);
     </script>

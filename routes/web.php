@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth', 'cekleveladmin'], 'prefix' => 'admin'], f
 
 Route::group(['middleware' => ['auth', 'cekleveluser'], 'prefix' => 'kasir'], function(){
     Route::resource('dashboard', KasirController::class);
+    Route::post('acc', 'App\Http\Controllers\KasirController@acc')->name('acc');
 });
 
 Route::group(['prefix' => 'warung'], function(){
@@ -49,7 +50,8 @@ Route::group(['prefix' => 'warung'], function(){
     Route::get('keranjang-tambah/{id}', 'App\Http\Controllers\KeranjangController@tambah')->name('keranjang-tambah');
     Route::get('keranjang-kurang/{id}','App\Http\Controllers\KeranjangController@kurang')->name('keranjang-kurang');
     Route::get('receipt', 'App\Http\Controllers\KeranjangController@receipt')->name('receipt');
-    Route::post('acc', 'App\Http\Controllers\KasirController@acc')->name('acc');
+    Route::get('selesai', 'App\Http\Controllers\KeranjangController@selesai')->name('selesai');
+
 });
 
 

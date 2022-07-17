@@ -121,13 +121,13 @@
                                 <div class="d-flex justify-content-center pt-2">
                                     <div class="col">
                                         <img src="{{asset('upload/foto_produk')}}/{{$td->produk->foto_produk}}" alt="" style="width: 120px">
-                                        <div class="mt-2 d-flex ">
+                                        <div class="d-flex justify-content-between pt-2 " style="width: 120px">
 
-                                                <button class="pr-2" style="background-color: transparent;border-color: transparent;width: 11%"><a  href="#!" data-mdb-toggle="tooltip" title="Remove"><i
+                                                <button class="" style="background-color: transparent;border-color: transparent;width: 11%"><a  href="#!" data-mdb-toggle="tooltip" title="Remove"><i
                                                     class="fas fa-trash-alt text-danger " data-toggle="modal" data-target="#hapus_produkhp{{$td->produk->id_produk}}"></i></a></button>
 
                                                     @if ($td->jumlah ==1)
-                                                    <button class="pl-2" style="background-color: transparent;border-color: transparent;width: 11%" ><a onclick="return false" href="{{url('warung/keranjang-kurang')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Remove"><i
+                                                    <button class="" style="background-color: transparent;border-color: transparent;width: 11%" ><a onclick="return false" href="{{url('warung/keranjang-kurang')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Remove"><i
                                                         class="fas fa-minus text-danger"></i></a></button>
                                                     @else
                                                     <button style="background-color: transparent;border-color: transparent;width: 11%" ><a href="{{url('warung/keranjang-kurang')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Remove"><i
@@ -139,7 +139,7 @@
 
                                         </div>
                                     </div>
-                                    <h6 class="ps-2 text-left">{{$td->produk->nama_produk}}</h6>
+                                    <h6 class="ps-2" style="text-align: right">{{$td->produk->nama_produk}}</h6>
                                 </div>
                                 <hr>
                                 @endforeach

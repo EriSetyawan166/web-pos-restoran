@@ -52,7 +52,7 @@ class ProdukController extends Controller
         $produk->kode_produk= $request->kode;
         $produk->nama_produk = $request->nama;
         $produk->harga = $request->harga;
-        $produk->stok = $request->stok;
+        $produk->status= $request->status;
 
         if($request->file('foto')){
             $file = $request->file('foto');
@@ -111,7 +111,7 @@ class ProdukController extends Controller
         $produk->kode_produk= $request->kode;
         $produk->nama_produk = $request->nama;
         $produk->harga = $request->harga;
-        $produk->stok = $request->stok;
+        $produk->status = $request->status;
 
         $produk->save();
         return back()->with('success', 'Data Berhasil Diubah!');
