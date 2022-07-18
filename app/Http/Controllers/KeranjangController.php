@@ -19,12 +19,30 @@ class KeranjangController extends Controller
      */
     public function index()
     {
+        $data_detail = TransaksiDetail::where('transaksi_id',session()->get('id'))->get();
         $transaksinow = Transaksi::where('id_transaksi',session()->get('id'))->firstorfail();
         $transaksidetail = TransaksiDetail::where('transaksi_id',session()->get('id'))->get();
         // @dd($transaksidetail->jumlah);
         $kategori = Kategori::all();
-        return view('keranjang', compact('kategori', 'transaksinow','transaksidetail'));
+        return view('keranjang', compact('kategori', 'transaksinow','transaksidetail'))->with(['data' => $data_detail]);
 
+    }
+
+    public function detail(){
+        $data_detail = TransaksiDetail::where('transaksi_id',session()->get('id'))->get();
+        return view('detail')->with(['data' => $data_detail]);
+    }
+
+    public function jumlah(){
+        $data = Transaksi::where('id_transaksi',session()->get('id'))->first();
+        // @dd($data->total_harga);
+        return view('jumlah')->with(['data' => $data]);
+
+    }
+
+    public function total(){
+        $data = Transaksi::where('id_transaksi',session()->get('id'))->first();
+        return view('total')->with(['data' => $data]);
     }
 
     /**
@@ -103,6 +121,7 @@ class KeranjangController extends Controller
     public function tambah(Request $request, $id)
     {
         // @dd($id);
+
         $infotransaksi = Transaksi::where('id_transaksi',session()->get('id'))->firstorfail();
         $info = TransaksiDetail::where([['produk_id', $id], ['transaksi_id', session()->get('id')],])->first();
         $jumlah = $info->jumlah + 1;

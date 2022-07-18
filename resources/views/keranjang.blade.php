@@ -46,7 +46,7 @@
 
                     <li class="sidebar-item {{ (request()->is('warung/keranjang')) ? 'active' : '' }}">
                         <a class="sidebar-link" href="{{url('warung/keranjang')}}">
-            <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Keranjang <span class="text-success">{{$transaksinow->total_item}}</span></span>
+            <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Keranjang <span id="total"></span></span>
             </a>
                     </li>
                     <li class="sidebar-header">
@@ -87,7 +87,7 @@
         <div class="navbar-collapse collapse">
             <ul class="navbar-nav navbar-align">
 
-                <a href="{{url('warung/keranjang')}}" class="btn"><i class="fa-solid fa-cart-plus end"></i><span class="indicator text-success">{{$transaksinow->total_item}}</span></a>
+                <a href="{{url('warung/keranjang')}}" class="btn"><i class="fa-solid fa-cart-plus end"></i><span id="total2"></span></a>
 
             </ul>
         </div>
@@ -227,8 +227,8 @@
                                 <h5 class="mb-0"><i class="fas fa-cart-shopping me-2"></i>Keranjang</h5>
                               </div>
                               <div class="card-body" data-mdb-perfect-scrollbar="true">
-
-                                <table class="table mb-0">
+                                <div id="tampil"></div>
+                                {{-- <table class="table mb-0">
                                   <thead>
                                     <tr>
                                       <th scope="col">Nama Menu</th>
@@ -239,7 +239,7 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    @foreach ($transaksidetail as $td)
+                                    @foreach ($data as $td)
                                     <tr class="fw-normal">
                                         <th>
                                           <img src="{{asset('upload/foto_produk')}}/{{$td->produk->foto_produk}}"
@@ -265,12 +265,13 @@
                                               @if ($td->jumlah == 1)
                                               <button style="background-color: transparent;border-color: transparent"><a onclick="return false" href="{{url('warung/keranjang-kurang')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Remove"><i
                                                 class="fas fa-minus text-danger me-3"></i></a></button>
+
                                                 @else
                                                 <button style="background-color: transparent;border-color: transparent"><a href="{{url('warung/keranjang-kurang')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Remove"><i
                                                     class="fas fa-minus text-danger me-3"></i></a></button>
                                               @endif
 
-                                             <button style="background-color: transparent;border-color: transparent"> <a  href="{{url('warung/keranjang-tambah')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Done"><i
+                                             <button id="{{$td->produk_id}}"   onclick="id_tambah(this.id)" style="background-color: transparent;border-color: transparent"> <a   data-mdb-toggle="tooltip" title="Done"><i
                                                   class="fas fa-add text-success me-3"></i></a></button>
 
 
@@ -307,12 +308,42 @@
                                         </div>
                                     </div>
                                     @endforeach
+
                                                                       </tbody>
-                                </table>
+                                </table> --}}
+                                @foreach ($transaksidetail as $td)
+    <div class="modal fade" id="hapus_produkpc{{$td->produk->id_produk}}" tabindex="-1" role="dialog" aria-labelledby="hapus-transaksi" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Hapus Menu?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus menu {{$td->produk->nama_produk}} dari keranjang?</p>
+                <img class="img-fluid img-thumbnail mx-auto d-block" style="height: 200px;" src="{{asset('upload/foto_produk')}}/{{$td->produk->foto_produk}}">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                <form action="{{url('warung/keranjang')}}/{{$td->produk_id}}" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button class="btn btn-danger" type="submit">hapus</button>
+                </form>
+
+            </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
                                 <h5 class="mt-5">Jumlah Pesanan</h5>
                                 <div class="d-flex justify-content-between">
                                     <p>Sub Total:</p>
-                                    <h3 class="text-success">Rp{{number_format($transaksinow->total_harga)}}</h3>
+                                    <div id="jumlah"></div>
+                                    {{-- <h3 class="text-success">Rp{{number_format($transaksinow->total_harga)}}</h3> --}}
                                 </div>
                               </div>
                               <div class="card-footer text-end p-2">
@@ -336,9 +367,82 @@
 
     <script src="{{asset('js/app.js')}}"></script>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+
+    $(document).ready(function(){
+        tampil();
+        jumlah();
+        total();
+        console.log("ini jalan");
+        });
+
+    function tampil(){
+        $.get("{{url('warung/detail')}}",{},function(data,status){
+            $("#tampil").html(data)
+        });
+    }
+
+    function jumlah(){
+        $.get("{{url('warung/jumlah')}}",{},function(data,status){
+            $("#jumlah").html(data)
+        });
+    }
+
+    function total(){
+        $.get("{{url('warung/total')}}",{},function(data,status){
+            $("#total").html(data)
+            $("#total2").html(data)
+        });
+    }
+
+    function id_tambah(clickID) {
+        var id = clickID;
+        // $.get("keranjang-tambah/".id, function(data){
+        //     // Display the returned data in browser
+        //     alert("JALAN");
+        // });
+
+        $.ajax({
+            type:"get",
+            url:"{{url('warung/keranjang-tambah')}}/"+id,
+            data: "id=" +id,
+            success:function(data){
+                console.log("keranjang-tambah/"+id);
+                tampil();
+                jumlah();
+                total();
+            }
+        });
+    }
+
+    function id_kurang(clickID) {
+        var id = clickID;
+        // $.get("keranjang-tambah/".id, function(data){
+        //     // Display the returned data in browser
+        //     alert("JALAN");
+        // });
+
+        $.ajax({
+            type:"get",
+            url:"{{url('warung/keranjang-kurang')}}/"+id,
+            data: "id=" +id,
+            success:function(data){
+                console.log("keranjang-kurang/"+id);
+                tampil();
+                jumlah();
+                total();
+            }
+        });
+    }
+</script>
 
 @include('sweetalert::alert')
 
