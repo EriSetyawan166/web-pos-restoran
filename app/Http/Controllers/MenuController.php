@@ -24,7 +24,10 @@ class MenuController extends Controller
         // @dd();
         $transaksi = new Transaksi();
 
-        $jumtransaksi = Transaksi::count();
+        $jumtransaksi = Transaksi::orderBy('id_transaksi','desc')->first();
+
+        // @dd(substr($testing->id_transaksi,-5));
+        $jumtransaksi = intval(substr($jumtransaksi->id_transaksi,-5));
         $dt = Carbon::now();
         $dt = $dt->format('dmY');
         $dt = $dt. str_pad($jumtransaksi+1, 5, '0', STR_PAD_LEFT);

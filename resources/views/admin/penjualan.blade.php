@@ -36,7 +36,7 @@
 						Pages
 					</li>
 
-					<li class="sidebar-item {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
+					<li class="sidebar-item  {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
 						<a class="sidebar-link" href="{{route('dashboard')}}">
               <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
             </a>
@@ -67,9 +67,10 @@
                     </li>
 
 
+
+
 			</div>
 		</nav>
-
 
 		<div class="main">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
@@ -123,10 +124,9 @@
 
 			<main class="content">
                 <!-- Button trigger modal -->
+                <div class="container-fluid p-0">
 
-				<div class="container-fluid p-0">
-
-					<h1 class="h3 mb-3"><strong>Data</strong> Kategori</h1>
+					<h1 class="h3 mb-3"><strong>Data</strong> Penjualan</h1>
 
 					<div class="row">
 
@@ -138,130 +138,90 @@
                                             <div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">Kategori</h5>
+														<h5 class="card-title">Penjualan</h5>
 													</div>
 
 													<div class="col-auto">
 														<div class="stat text-primary">
-															<i class="align-middle" data-feather="truck"></i>
+															<i class="align-middle" data-feather="dollar-sign"></i>
 														</div>
 													</div>
 												</div>
-												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-plus"></i> Tambah Kategori</button>
 
-                                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Kategori</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <form action="{{route('kategori.store')}}" method="POST" enctype="multipart/form-data">
-                                                        @csrf
-                                                        <div class="modal-body">
-                                                            <div class="form-group">
-                                                                <input type="text" id="nama" name="nama" placeholder="Masukkan nama kategori" class="form-control" required autocomplete="off">
-                                                            </div>
-                                                            <div class="form-group mt-3">
-                                                                <input type="file" name="foto" class="form-control" required>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                                                            <button type="submit" class="btn btn-primary">Simpan</button>
-                                                        </div>
-                                                        </div>
-                                                    </form>
-
-                                                </div>
-                                                </div>
 
                                                 <div class="table-responsive mt-3">
                                                     <table class="table table-bordered" id="datatableSimple" style="width: 100%">
                                                         <thead>
                                                             <tr>
-                                                                <th class="text-center" style="width: 8%">No</th>
-                                                                <th style="width:40%">Nama</th>
-                                                                <th>Foto</th>
+                                                                <th>No</th>
+                                                                <th>Tanggal</th>
+                                                                <th>Id</th>
+                                                                <th>Total Item</th>
+                                                                <th>Total Harga</th>
+                                                                <th>Kasir</th>
+                                                                <th>Status</th>
                                                                 <th>Aksi</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @foreach ($kategori as $kg)
-
+                                                            @foreach ($transaksi as $tr)
                                                             <tr>
-                                                                <td class="text-center">{{$loop->iteration}}</td>
-                                                                <td>{{$kg->nama_kategori}}</td>
-                                                                <td><img src="{{asset('upload/foto_kategori')}}/{{$kg->foto_kategori}}" class="img-thumbnail" width="100" height="100" alt=""></td>
-                                                                <td class=""><a href="" class="btn btn-warning btn-sm mr-1" data-toggle="modal" data-target="#ubah_kategori{{$kg->id_kategori}}"><i class="fa-solid fa-pen to-square mr-1"></i>Ubah</a>
-                                                                    <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapus_kategori{{$kg->id_kategori}}"><i class="fa-solid fa-trash to-square mr-1"></i>Hapus</a>
-                                                                </td>
+                                                                {{-- @dd($tr->transaksidetail) --}}
+                                                                <td>{{{$loop->iteration}}}</td>
+                                                                <td>{{$tr->created_at->format('d-m-Y')}}</td>
+                                                                <td>{{$tr->id_transaksi}}</td>
+                                                                <td>{{$tr->total_item}}</td>
+                                                                <td>{{$tr->total_harga}}</td>
+                                                                @if (!is_null($tr->user))
+                                                                <td>{{$tr->user->nama}}</td>
+                                                                <td>{{$tr->status}}</td>
+                                                                <td><a href="#" class="btn btn-primary m-2 " data-toggle="modal" data-target="#lihat_data{{$tr->id_transaksi}}"><i class="fa-solid fa-eye"></i></a><a href="#" class="btn btn-danger" data-toggle="modal" data-target="#hapus_data{{$tr->id_transaksi}}"><i class="fa-solid fa-trash-can" ></i></a></td>
+                                                                @else
+                                                                <td>-</td>
+                                                                <td>{{$tr->status}}</td>
+                                                                <td><a  disabled class="btn btn-secondary m-2" ><i class="fa-solid fa-eye"></i></a><a disabled  class="btn btn-secondary"><i class="fa-solid fa-trash-can" ></i></a></td>
+                                                                @endif
+
+
                                                             </tr>
+                                                            @endforeach
+                                                            @foreach ($transaksi as $tr)
+                                                            <div class="modal fade" id="hapus_data{{$tr->id_transaksi}}" tabindex="-1" role="dialog" aria-labelledby="hapus-siswa" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Hapus data?</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p>Apakah Anda yakin ingin menghapus data?</p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                                                                        <form action="{{url('admin/penjualan', $tr->id_transaksi)}}" method="POST">
+                                                                            {{ csrf_field() }}
+                                                                            <input type="hidden" name="_method" value="DELETE">
+                                                                            <button class="btn btn-danger" type="submit">hapus</button>
+                                                                        </form>
 
-                                                        @endforeach
-
-                                                        @foreach ($kategori as $kg)
-                                                <div class="modal fade" id="hapus_kategori{{$kg->id_kategori}}" tabindex="-1" role="dialog" aria-labelledby="hapus-siswa" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Hapus data?</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <p>Apakah Anda yakin ingin menghapus data?</p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                                                            <form action="{{url('admin/kategori', $kg->id_kategori)}}" method="POST">
-                                                                {{ csrf_field() }}
-                                                                <input type="hidden" name="_method" value="DELETE">
-                                                                <button class="btn btn-danger" type="submit">hapus</button>
-                                                            </form>
-
-                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal fade" id="ubah_kategori{{$kg->id_kategori}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Kategori</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <form action="{{url('admin/kategori')}}/{{$kg->id_kategori}}" method="POST" enctype="multipart/form-data">
-                                                            @csrf
-                                                            <div class="modal-body">
-                                                                <div class="form-group">
-                                                                    <input type="text" id="nama" name="nama_kategori" placeholder="Masukkan nomor nama" class="form-control" required autocomplete="off" value="{{$kg->nama_kategori}}">
-                                                                </div>
-                                                                <div class="form-group mt-3">
-                                                                    <input type="file" name="foto" class="form-control">
+                                                                    </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                                                                        <input type="hidden" name="_method" value="PUT">
-                                                                    <button class="btn btn-warning" type="submit">Ubah</button>
-                                                            </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    </div>
 
 
 
-                                                @endforeach
-                                                    </tbody>
+
+
+
+
+
+
+
+                                                            @endforeach
+                                                        </tbody>
                                                     </table>
                                                 </div>
 											</div>
@@ -276,42 +236,149 @@
 				</div>
 			</main>
 
-			<footer class="footer">
-				<div class="container-fluid">
-					<div class="row text-muted">
-						<div class="col-6 text-start">
-							<p class="mb-0">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> &copy;
-							</p>
-						</div>
-						<div class="col-6 text-end">
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</footer>
+
 		</div>
 	</div>
 
-	<script src="{{asset('js/app.js')}}"></script>
+
+    @foreach ($transaksi as $tr)
+    <div class="modal fade" id="lihat_data{{$tr->id_transaksi}}" tabindex="-1" role="dialog" aria-labelledby="hapus-siswa" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Lihat Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive mt-3">
+                    <table class="table table-bordered" id="datatableSimple" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Id</th>
+                                <th>Nama</th>
+                                <th>Harga</th>
+                                <th>Jumlah</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($tr->transaksidetail as $item)
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$item->produk_id}}</td>
+                                <td>{{$item->produk->nama_produk}}</td>
+                                <td>{{$item->harga_satuan}}</td>
+                                <td>{{$item->jumlah}}</td>
+                                <td>{{$item->jumlah * $item->harga_satuan}}</td>
+                            </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+
+    @endforeach
+
+	{{-- <script src="{{asset('js/app.js')}}"></script> --}}
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="{{asset('js/app.js')}}"></script>
 
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Line chart
+        new Chart(document.getElementById("chartjs-line"), {
+            type: "line",
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
+                datasets: [{
+                    label: "Pendapatan (Rp)",
+                    fill: true,
+                    backgroundColor: "transparent",
+                    borderColor: window.theme.primary,
+                    data: []
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    intersect: false
+                },
+                hover: {
+                    intersect: true
+                },
+                plugins: {
+                    filler: {
+                        propagate: false
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        reverse: true,
+                        gridLines: {
+                            color: "rgba(0,0,0,0.05)"
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            stepSize: 100000
+                        },
+                        display: true,
+                        borderDash: [5, 5],
+                        gridLines: {
+                            color: "rgba(0,0,0,0)",
+                            fontColor: "#fff"
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Pie chart
+        new Chart(document.getElementById("chartjs-pie"), {
+            type: "pie",
+            data: {
+                labels: ["Social", "Search Engines", "Direct", "Other","test","ahi"],
+                datasets: [{
+                    data: [260, 125, 54, 146,50,200],
+                    backgroundColor: [
+                        window.theme.primary,
+                        window.theme.warning,
+                        window.theme.danger,
+                        "#000000"
+                    ],
+                    borderColor: "transparent"
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                }
+            }
+        });
+    });
+</script>
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");

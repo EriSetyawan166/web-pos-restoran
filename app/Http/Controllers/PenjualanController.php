@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\Produk;
-use App\Models\Kategori;
 use App\Models\Transaksi;
-use Carbon\Carbon;
+use App\Models\TransaksiDetail;
+use Illuminate\Support\Facades\Auth;
 
-class AdminController extends Controller
+class PenjualanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,26 +17,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        // @dd("jalan");
-        $data_user = User::count();
-        $kategori = Kategori::count();
-        $produk = Produk::count();
 
-        $data_pendapatan = array();
-        for ($i=1; $i <= 12; $i++) {
-            $total_pembelian = Transaksi::where('status','selesai')->whereMonth('created_at', $i)->sum('total_harga');
-
-        $data_pendapatan[] += $total_pembelian;
-        }
-
-        $date = Carbon::now();
-
-        // @dd(json_encode($data_pendapatan));
-
-
-        $transaksi = Transaksi::where('status','selesai')->count();
         $user = User::where('nip','=',Auth::user()->nip)->firstOrFail();
-        return view('admin.dashboard', compact('user', 'kategori', 'produk', 'data_user', 'transaksi', 'data_pendapatan','date'));
+        $transaksi = Transaksi::all();
+        return view('admin.penjualan', compact('user', 'transaksi'));
     }
 
     /**
@@ -104,6 +86,10 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // @dd($id);
+        $transaksi = Transaksi::where('id_transaksi','=',$id)->firstOrFail();
+        // @dd($kategori);
+        $transaksi->delete();
+        return back()->with('info', 'Data Berhasil Dihapus');
     }
 }

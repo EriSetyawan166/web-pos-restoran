@@ -57,6 +57,14 @@
               <i class="align-middle" data-feather="user"></i> <span class="align-middle">User</span>
             </a>
 					</li>
+                    <li class="sidebar-header">
+                        Transaksi
+                    </li>
+                    <li class="sidebar-item {{ (request()->is('admin/penjualan')) ? 'active' : '' }}">
+                        <a class="sidebar-link" href="{{route('penjualan.index')}}">
+              <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Penjualan </span>
+            </a>
+                    </li>
 
 
 			</div>
