@@ -47,9 +47,10 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         // @dd($request->all());
+        $jumlah = Produk::count();
         $produk = new Produk();
         $produk->kategori_id = $request->kategori;
-        $produk->kode_produk= $request->kode;
+        $produk->kode_produk= "PR".str_pad($jumlah+1, 5, '0', STR_PAD_LEFT);
         $produk->nama_produk = $request->nama;
         $produk->harga = $request->harga;
         $produk->status= $request->status;

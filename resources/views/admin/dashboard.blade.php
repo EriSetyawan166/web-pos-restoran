@@ -292,7 +292,7 @@
                     }],
                     yAxes: [{
                         ticks: {
-                            stepSize: 100000
+                            stepSize: 1000000
                         },
                         display: true,
                         borderDash: [5, 5],

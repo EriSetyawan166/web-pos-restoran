@@ -128,9 +128,17 @@
 
                             <div class="card p-3 pt-4 pb-4">
                             <div class="d-flex align-items-center"  style="height: 100px">
-                                    <div class="p-2">
-                                        <img class="flex-shrink-0 img-thumbnail rounded produk img-fluid" src="{{asset('upload/foto_produk')}}/{{$pd->foto_produk}}" alt="" style="width: 120px">
-                                    </div>
+                                @if ($pd->status == 'Kosong')
+                                <div class="p-2">
+                                    <img class="flex-shrink-0 img-thumbnail rounded produk img-fluid"  src="{{asset('upload/foto_produk')}}/{{$pd->foto_produk}}" alt="" style="width: 120px;filter: grayscale(100%)">
+                                </div>
+                                @else
+                                 <div class="p-2">
+                                    <img class="flex-shrink-0 img-thumbnail rounded produk img-fluid"  src="{{asset('upload/foto_produk')}}/{{$pd->foto_produk}}" alt="" style="width: 120px">
+                                </div>
+
+                                @endif
+
 
 
 
@@ -152,6 +160,9 @@
 
 
                                     <div class="p-2 ml-2" style="margin-left: auto !important">
+                                        @if ($pd->status == 'Kosong')
+                                        <button disabled type="submit" class="btn btn-secondary" ><i class="fas fa-fw fa-check"></i><span class="keranjang"> Kosong</span></button>
+                                        @else
                                         @if (in_array($namaproduk,$db))
                                         <button disabled type="submit" class="btn btn-secondary" ><i class="fas fa-fw fa-check"></i><span class="keranjang"> Ditambahkan</span></button>
                                         {{-- </div>
@@ -159,6 +170,8 @@
                                         @else
                                         <button type="submit" class="btn btn-primary" ><i class="fas fa-fw fa-add"></i><span class="keranjang"> Keranjang</span></button>
                                         @endif
+                                        @endif
+
 
                                     </div>
                                     {{-- @endforeach --}}

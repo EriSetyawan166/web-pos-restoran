@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id('id_produk')->autoIncrement();
             $table->unsignedBigInteger('kategori_id');
             $table->foreign('kategori_id')->references('id_kategori')->on('kategori')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('kode_produk');
+            $table->string('kode_produk')->unique();
             $table->string('nama_produk');
             $table->string('foto_produk');
             $table->integer('harga');

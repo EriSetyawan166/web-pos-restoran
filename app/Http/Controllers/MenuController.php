@@ -22,12 +22,20 @@ class MenuController extends Controller
     public function index(Request $request)
     {
         // @dd();
+
+
         $transaksi = new Transaksi();
 
         $jumtransaksi = Transaksi::orderBy('id_transaksi','desc')->first();
+        // @dd(is_null($jumtransaksi));
+        if (is_null($jumtransaksi)) {
+            $jumtransaksi = 0;
+        } else{
+            $jumtransaksi = intval(substr($jumtransaksi->id_transaksi,-5));
+        }
 
         // @dd(substr($testing->id_transaksi,-5));
-        $jumtransaksi = intval(substr($jumtransaksi->id_transaksi,-5));
+
         $dt = Carbon::now();
         $dt = $dt->format('dmY');
         $dt = $dt. str_pad($jumtransaksi+1, 5, '0', STR_PAD_LEFT);

@@ -171,7 +171,7 @@
                                                                 <td>{{$tr->created_at->format('d-m-Y')}}</td>
                                                                 <td>{{$tr->id_transaksi}}</td>
                                                                 <td>{{$tr->total_item}}</td>
-                                                                <td>{{$tr->total_harga}}</td>
+                                                                <td>{{number_format($tr->total_harga)}}</td>
                                                                 @if (!is_null($tr->user))
                                                                 <td>{{$tr->user->nama}}</td>
                                                                 <td>{{$tr->status}}</td>
@@ -271,9 +271,9 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$item->produk_id}}</td>
                                 <td>{{$item->produk->nama_produk}}</td>
-                                <td>{{$item->harga_satuan}}</td>
+                                <td>{{number_format($item->harga_satuan)}}</td>
                                 <td>{{$item->jumlah}}</td>
-                                <td>{{$item->jumlah * $item->harga_satuan}}</td>
+                                <td>{{number_format($item->jumlah * $item->harga_satuan)}}</td>
                             </tr>
                             @endforeach
 

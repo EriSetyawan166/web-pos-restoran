@@ -164,9 +164,6 @@
                                                                 <input type="text" id="nama" name="nama" placeholder="Masukkan nama produk" class="form-control" required autocomplete="off">
                                                             </div>
                                                             <div class="form-group mt-3">
-                                                                <input type="text" id="kode" name="kode" placeholder="Masukkan kode produk" class="form-control" required autocomplete="off">
-                                                            </div>
-                                                            <div class="form-group mt-3">
                                                                 <select class="form-control select2 mx-auto mt-2" style="width: 100%" name="kategori" id="kategori">
                                                                     <option selected disabled value="">Pilih Kategori</option>
                                                                     @foreach ($kategori as $item)
@@ -181,7 +178,7 @@
                                                                 <select class="form-control select2 mx-auto mt-2" style="width: 100%" name="status" id="status">
                                                                     <option selected disabled value="">Pilih Status</option>
                                                                     <option value="Tersedia">Tersedia</option>
-                                                                    <option value="Tersedia">Kosong</option>
+                                                                    <option value="Kosong">Kosong</option>
                                                                 </select>
                                                             </div>
 
@@ -222,7 +219,7 @@
                                                                 <td>{{$pd->kode_produk}}</td>
                                                                 <td>{{$pd->kategori->nama_kategori}}</td>
                                                                 <td><img src="{{asset('upload/foto_produk')}}/{{$pd->foto_produk}}" class="img-thumbnail" width="100" height="100" alt=""></td>
-                                                                <td>{{$pd->harga}}</td>
+                                                                <td>{{number_format($pd->harga)}}</td>
                                                                 <td>{{$pd->status}}</td>
                                                                 <td class=""><a href="" class="btn btn-warning btn-sm mr-1" data-toggle="modal" data-target="#ubah_produk{{$pd->id_produk}}"><i class="fa-solid fa-pen to-square mr-1"></i>Ubah</a>
                                                                     <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapus_produk{{$pd->id_produk}}"><i class="fa-solid fa-trash to-square mr-1"></i>Hapus</a>
