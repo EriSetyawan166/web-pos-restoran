@@ -10,11 +10,9 @@
         <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link rel="shortcut icon" href="{{asset('img/icons/icon-48x48.png')}}" />
+        <link rel="shortcut icon" href="{{ asset('img/logo.png') }}">
 
-        <link rel="canonical" href="https://demo-basic.adminkit.io/" />
-
-        <title>Nama Warung</title>
+        <title>Resto Calas</title>
 
         <link href="{{asset('css/card.css')}}" rel="stylesheet">
         <link href="{{asset('css/app.css')}}" rel="stylesheet">
@@ -28,7 +26,7 @@
             <nav id="sidebar" class="sidebar js-sidebar">
                 <div class="sidebar-content js-simplebar">
                     <a class="sidebar-brand" href="{{url('warung')}}">
-            <span class="align-middle">Nama Restoran</span>
+            <span class="align-middle">Resto Calas</span>
             </a>
 
                     <ul class="sidebar-nav">
@@ -103,7 +101,7 @@
                     <!-- Button trigger modal -->
 
                     <div class="container-fluid p-0">
-                        <h1 class="h3 mb-3"><strong>Menu</strong> Warung    </h1>
+                        <h1 class="h3 mb-3"><strong>Menu</strong></h1>
 
 
                         <div class="row">

@@ -10,7 +10,7 @@
 	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="{{asset('img/icons/icon-48x48.png')}}" />
+	<link rel="shortcut icon" href="{{ asset('img/logo.png') }}">
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
+    <link rel="shortcut icon" href="{{ asset('img/logo.png') }}">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
@@ -27,8 +28,8 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
-          <span class="align-middle">Nama Restoran</span>
+				<a class="sidebar-brand" href="{{route('dashboard')}}">
+          <span class="align-middle">Resto Calas</span>
         </a>
 
 				<ul class="sidebar-nav">
@@ -89,12 +90,7 @@
                                 <i class="fas fa-fw fa-user"></i> </i><span class="text-dark">{{$user->nama}}</span>
               </a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-								<div class="dropdown-divider"></div>
+
 								<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Log out</a>
 							</div>
 						</li>
@@ -167,7 +163,7 @@
                                                             @foreach ($transaksi as $tr)
                                                             <tr>
                                                                 {{-- @dd($tr->transaksidetail) --}}
-                                                                <td>{{{$loop->iteration}}}</td>
+                                                                <td>{{($transaksi->currentPage() - 1) * $transaksi->perPage() + $loop->iteration}}</td>
                                                                 <td>{{$tr->created_at->format('d-m-Y')}}</td>
                                                                 <td>{{$tr->id_transaksi}}</td>
                                                                 <td>{{$tr->total_item}}</td>
@@ -223,8 +219,13 @@
                                                             @endforeach
                                                         </tbody>
                                                     </table>
-                                                </div>
+
 											</div>
+                                        </div>
+                                        <div class="card-footer" >
+
+                                            {{$transaksi->links()}}
+
                                         </div>
                                     </div>
                                 </div>

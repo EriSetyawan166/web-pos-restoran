@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{{ asset('img/logo.png') }}">
     <title>Receipt</title>
 </head>
 <body>
@@ -24,7 +25,7 @@
                             <div class="col-sm-12">
                                 <div class="card shadow">
                                     <div class="card-body">
-                                        <h1 class="text-center">Nama Warung</h1>
+                                        <h1 class="text-center">Resto Calas</h1>
                                         <p class="text-center">Jl. Taman Melati, Bekasi, West Java
                                             <br>(021)8475937582</p>
                                         <p class="text-center"></p>
@@ -62,7 +63,8 @@
                                         </div>
                                         <p class="text-center pt-5">Terimakasih dan semoga harimu menyenangkan!</p>
                                         <div class="d-flex justify-content-center">{!! DNS1D::getBarcodeHTML($transaksinow->id_transaksi, "C128",3,60) !!}</div>
-                                        <p class="text-center pt-3">Nama Warung</p>
+                                        <p class="text-center pt-3">Resto Calas</p>
+
                                     </div>
                                 </div>
                             </div>

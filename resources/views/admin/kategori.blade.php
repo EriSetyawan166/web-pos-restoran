@@ -10,7 +10,7 @@
 	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="{{asset('img/icons/icon-48x48.png')}}" />
+	<link rel="shortcut icon" href="{{ asset('img/logo.png') }}">
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
@@ -27,8 +27,8 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
-          <span class="align-middle">Nama Restoran</span>
+				<a class="sidebar-brand" href="{{route('dashboard')}}">
+          <span class="align-middle">Resto Calas</span>
         </a>
 
 				<ul class="sidebar-nav">
@@ -88,12 +88,6 @@
                                 <i class="fas fa-fw fa-user"></i> </i><span class="text-dark">{{$user->nama}}</span>
               </a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Log out</a>
 							</div>
 						</li>
@@ -143,7 +137,7 @@
 
 													<div class="col-auto">
 														<div class="stat text-primary">
-															<i class="align-middle" data-feather="truck"></i>
+															<i class="align-middle" data-feather="box"></i>
 														</div>
 													</div>
 												</div>
@@ -193,7 +187,7 @@
                                                         @foreach ($kategori as $kg)
 
                                                             <tr>
-                                                                <td class="text-center">{{$loop->iteration}}</td>
+                                                                <td class="text-center">{{($kategori->currentPage() - 1) * $kategori->perPage() + $loop->iteration}}</td>
                                                                 <td>{{$kg->nama_kategori}}</td>
                                                                 <td><img src="{{asset('upload/foto_kategori')}}/{{$kg->foto_kategori}}" class="img-thumbnail" width="100" height="100" alt=""></td>
                                                                 <td class=""><a href="" class="btn btn-warning btn-sm mr-1" data-toggle="modal" data-target="#ubah_kategori{{$kg->id_kategori}}"><i class="fa-solid fa-pen to-square mr-1"></i>Ubah</a>
@@ -263,8 +257,16 @@
                                                 @endforeach
                                                     </tbody>
                                                     </table>
+
                                                 </div>
+
 											</div>
+                                            <div class="card-footer" >
+
+                                                {{$kategori->links()}}
+
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -276,34 +278,7 @@
 				</div>
 			</main>
 
-			<footer class="footer">
-				<div class="container-fluid">
-					<div class="row text-muted">
-						<div class="col-6 text-start">
-							<p class="mb-0">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> &copy;
-							</p>
-						</div>
-						<div class="col-6 text-end">
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</footer>
-		</div>
+    		</div>
 	</div>
 
 	<script src="{{asset('js/app.js')}}"></script>

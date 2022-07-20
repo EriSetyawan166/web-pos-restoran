@@ -10,11 +10,12 @@
     <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="shortcut icon" href="{{asset('img/icons/icon-48x48.png')}}" />
+    {{-- <link rel="shortcut icon" href="{{asset('img/icons/icon-48x48.png')}}" /> --}}
+    <link rel="shortcut icon" href="{{ asset('img/logo.png') }}">
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-    <title>Nama Warung</title>
+    <title>Resto Calas</title>
 
     <link href="{{asset('css/card.css')}}" rel="stylesheet">
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
@@ -28,7 +29,7 @@
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
                 <a class="sidebar-brand" href="{{url('warung')}}">
-        <span class="align-middle">Nama Restoran</span>
+        <span class="align-middle">Resto Calas</span>
         </a>
 
                 <ul class="sidebar-nav">
@@ -161,14 +162,14 @@
 
                                     <div class="p-2 ml-2" style="margin-left: auto !important">
                                         @if ($pd->status == 'Kosong')
-                                        <button disabled type="submit" class="btn btn-secondary" ><i class="fas fa-fw fa-check"></i><span class="keranjang"> Kosong</span></button>
+                                        <button disabled type="submit" style="width: 140px" class="btn btn-secondary tombol" ><i class="fas fa-fw fa-x"></i><span class="keranjang"> Kosong</span></button>
                                         @else
                                         @if (in_array($namaproduk,$db))
-                                        <button disabled type="submit" class="btn btn-secondary" ><i class="fas fa-fw fa-check"></i><span class="keranjang"> Ditambahkan</span></button>
+                                        <button disabled type="submit" style="width: 140px" class="btn btn-success tombol" ><i class="fas fa-fw fa-check"></i><span class="keranjang"> Ditambahkan</span></button>
                                         {{-- </div>
                                         @continue --}}
                                         @else
-                                        <button type="submit" class="btn btn-primary" ><i class="fas fa-fw fa-add"></i><span class="keranjang"> Keranjang</span></button>
+                                        <button type="submit" style="width: 140px" class="btn btn-primary tombol" ><i class="fas fa-fw fa-add"></i><span class="keranjang"> Keranjang</span></button>
                                         @endif
                                         @endif
 
@@ -212,7 +213,7 @@
 
     <script>
         function tambah(){
-            
+
         }
     </script>
 

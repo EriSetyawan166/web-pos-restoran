@@ -23,7 +23,7 @@ class ProdukController extends Controller
     public function index()
     {
         $kategori = Kategori::all();
-        $produk = Produk::all();
+        $produk = Produk::paginate(5);
         $user = User::where('nip','=',Auth::user()->nip)->firstOrFail();
         return view('admin.produk', compact('user', 'produk', 'kategori'));
     }
@@ -109,7 +109,7 @@ class ProdukController extends Controller
             $produk->foto_produk = $fileName;
         }
         $produk->kategori_id = $request->kategori;
-        $produk->kode_produk= $request->kode;
+
         $produk->nama_produk = $request->nama;
         $produk->harga = $request->harga;
         $produk->status = $request->status;

@@ -23,7 +23,7 @@ class AdminController extends Controller
         $data_user = User::count();
         $kategori = Kategori::count();
         $produk = Produk::count();
-
+        $total_pendapatan = Transaksi::where('status','selesai')->sum('total_harga');
         $data_pendapatan = array();
         for ($i=1; $i <= 12; $i++) {
             $total_pembelian = Transaksi::where('status','selesai')->whereMonth('created_at', $i)->sum('total_harga');
@@ -38,7 +38,7 @@ class AdminController extends Controller
 
         $transaksi = Transaksi::where('status','selesai')->count();
         $user = User::where('nip','=',Auth::user()->nip)->firstOrFail();
-        return view('admin.dashboard', compact('user', 'kategori', 'produk', 'data_user', 'transaksi', 'data_pendapatan','date'));
+        return view('admin.dashboard', compact('user', 'kategori', 'produk', 'data_user', 'transaksi', 'data_pendapatan','date', 'total_pendapatan'));
     }
 
     /**

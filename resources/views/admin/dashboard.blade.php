@@ -10,7 +10,7 @@
 	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="{{asset('img/icons/icon-48x48.png')}}" />
+	<link rel="shortcut icon" href="{{ asset('img/logo.png') }}">
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
@@ -27,13 +27,13 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
-          <span class="align-middle">Nama Restoran</span>
+				<a class="sidebar-brand" href="{{route('dashboard')}}">
+          <span class="align-middle">Resto Calas</span>
         </a>
 
 				<ul class="sidebar-nav">
 					<li class="sidebar-header">
-						Pages
+						Master
 					</li>
 
 					<li class="sidebar-item active {{ (request()->is('admin/dashboard')) ? 'active' : '' }}">
@@ -90,12 +90,6 @@
                                 <i class="fas fa-fw fa-user"></i> </i><span class="text-dark">{{$user->nama}}</span>
               </a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Log out</a>
 							</div>
 						</li>
@@ -128,7 +122,7 @@
 
 				<div class="container-fluid p-0">
 
-					<h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
+					<h1 class="h3 mb-3"><strong>Dashboard</strong></h1>
 
 					<div class="row">
 						<div class="col-xl-12 col-xxl-5 d-flex">
@@ -144,7 +138,7 @@
 
 													<div class="col-auto">
 														<div class="stat text-primary">
-															<i class="align-middle" data-feather="truck"></i>
+															<i class="align-middle" data-feather="box"></i>
 														</div>
 													</div>
 												</div>
@@ -162,7 +156,7 @@
 
 													<div class="col-auto">
 														<div class="stat text-primary">
-															<i class="align-middle" data-feather="users"></i>
+															<i class="align-middle" data-feather="shopping-bag"></i>
 														</div>
 													</div>
 												</div>
@@ -199,7 +193,7 @@
 
 													<div class="col-auto">
 														<div class="stat text-primary">
-															<i class="align-middle" data-feather="users"></i>
+															<i class="align-middle" data-feather="credit-card"></i>
 														</div>
 													</div>
 												</div>
@@ -219,6 +213,7 @@
                                                 <div class="chart">
                                                     <canvas id="chartjs-line"></canvas>
                                                 </div>
+                                                <h5 class="ps-5 mt-3">Total Pendapatan: Rp{{number_format($total_pendapatan)}}</h5>
                                             </div>
                                         </div>
                                     </div>

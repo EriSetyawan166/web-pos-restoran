@@ -22,7 +22,7 @@ class KategoriController extends Controller
 
     public function index()
     {
-        $kategori = Kategori::all();
+        $kategori = Kategori::paginate(5);
 
         $user = User::where('nip','=',Auth::user()->nip)->firstOrFail();
         return view('admin.kategori', compact('user', 'kategori'));

@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data_user = User::all();
+        $data_user = User::paginate(5);
         $user = User::where('nip','=',Auth::user()->nip)->firstOrFail();
         return view('admin.user', compact('user', 'data_user'));
     }

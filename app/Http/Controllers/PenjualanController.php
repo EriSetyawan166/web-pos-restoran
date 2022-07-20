@@ -19,7 +19,7 @@ class PenjualanController extends Controller
     {
 
         $user = User::where('nip','=',Auth::user()->nip)->firstOrFail();
-        $transaksi = Transaksi::all();
+        $transaksi = Transaksi::paginate(5);
         return view('admin.penjualan', compact('user', 'transaksi'));
     }
 

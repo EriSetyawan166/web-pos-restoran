@@ -22,7 +22,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return (redirect()->intended('warung'));
+    // return (redirect()->intended('warung'));
+    return view('welcome');
 });
 
 Route::get('login', 'App\Http\Controllers\AuthController@index')->name('login');

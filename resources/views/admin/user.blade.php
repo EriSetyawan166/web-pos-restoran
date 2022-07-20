@@ -10,8 +10,7 @@
 	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="{{asset('img/icons/icon-48x48.png')}}" />
-
+	<link rel="shortcut icon" href="{{ asset('img/logo.png') }}">
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
 	<title>Dashboard - Admin</title>
@@ -27,8 +26,8 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
-          <span class="align-middle">Nama Restoran</span>
+				<a class="sidebar-brand" href="{{route('dashboard')}}">
+          <span class="align-middle">Resto Cals</span>
         </a>
 
 				<ul class="sidebar-nav">
@@ -88,12 +87,7 @@
                                 <i class="fas fa-fw fa-user"></i> </i><span class="text-dark">{{$user->nama}}</span>
               </a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-								<div class="dropdown-divider"></div>
+
 								<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Log out</a>
 							</div>
 						</li>
@@ -143,7 +137,7 @@
 
 													<div class="col-auto">
 														<div class="stat text-primary">
-															<i class="align-middle" data-feather="truck"></i>
+															<i class="align-middle" data-feather="user"></i>
 														</div>
 													</div>
 												</div>
@@ -162,10 +156,10 @@
                                                         @csrf
                                                         <div class="modal-body">
                                                             <div class="form-group mt-3">
-                                                                <input type="text" id="nip" name="nip" placeholder="Masukkan nomor nip" class="form-control" required autocomplete="off" >
+                                                                <input type="text" id="nip" name="nip" placeholder="Masukkan nomor nip" class="form-control" required autocomplete="off" pattern="[0-9]+" >
                                                             </div>
                                                             <div class="form-group mt-3">
-                                                                <input type="text" id="nama" name="nama" placeholder="Masukkan nama staff" class="form-control" required autocomplete="off">
+                                                                <input type="text" id="nama" name="nama" placeholder="Masukkan nama staff" class="form-control" required autocomplete="off" pattern="[A-Za-z' ]+">
                                                             </div>
                                                             <div class="form-group mt-3">
                                                                 <input type="text" id="username" name="username" placeholder="Masukkan username" class="form-control" required autocomplete="off">
@@ -211,7 +205,7 @@
                                                                 @continue
                                                             @endif
                                                             <tr>
-                                                                <td class="text-center">{{$loop->iteration-1}}</td>
+                                                                <td class="text-center">{{($data_user->currentPage() - 1) * $data_user->perPage() + $loop->iteration - 1}}</td>
                                                                 <td>{{$dt->nip}}</td>
                                                                 <td>{{$dt->username}}</td>
                                                                 <td>{{$dt->nama}}</td>
@@ -299,6 +293,11 @@
                                                     </table>
                                                 </div>
 											</div>
+                                            <div class="card-footer" >
+
+                                                {{$data_user->links()}}
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -310,33 +309,7 @@
 				</div>
 			</main>
 
-			<footer class="footer">
-				<div class="container-fluid">
-					<div class="row text-muted">
-						<div class="col-6 text-start">
-							<p class="mb-0">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> &copy;
-							</p>
-						</div>
-						<div class="col-6 text-end">
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</footer>
+
 		</div>
 	</div>
 
