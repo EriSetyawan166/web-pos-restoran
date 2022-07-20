@@ -193,7 +193,7 @@
                           </div>
                         </div>
                       </div>
-
+                      @if ($transaksidetail->isEmpty())
                       <div class="modal fade" id="selesai" tabindex="-1" role="dialog" aria-labelledby="selesai" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -204,18 +204,43 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p>Yakin dengan pesanan Anda?</p>
+                                <p>Keranjang Anda Masih Kosong</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
 
 
-                                <a class="btn btn-primary" href="{{url('warung/receipt')}}">Ya</a>
+                                
 
 
                             </div>
                             </div>
                         </div>
+                        @else
+                        <div class="modal fade" id="selesai" tabindex="-1" role="dialog" aria-labelledby="selesai" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Pesan</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Yakin dengan pesanan Anda?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+
+
+                                    <a class="btn btn-primary" href="{{url('warung/receipt')}}">Ya</a>
+
+
+                                </div>
+                                </div>
+                            </div>
+                      @endif
+
                     </div>
 
                     <div class="container  h-100 pc">

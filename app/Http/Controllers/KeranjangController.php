@@ -22,6 +22,7 @@ class KeranjangController extends Controller
         $data_detail = TransaksiDetail::where('transaksi_id',session()->get('id'))->get();
         $transaksinow = Transaksi::where('id_transaksi',session()->get('id'))->firstorfail();
         $transaksidetail = TransaksiDetail::where('transaksi_id',session()->get('id'))->get();
+        // @dd($transaksidetail);
         // @dd($transaksidetail->jumlah);
         $kategori = Kategori::all();
         return view('keranjang', compact('kategori', 'transaksinow','transaksidetail'))->with(['data' => $data_detail]);
