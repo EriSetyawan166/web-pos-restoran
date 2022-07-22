@@ -31,7 +31,14 @@ class KeranjangController extends Controller
 
     public function detail(){
         $data_detail = TransaksiDetail::where('transaksi_id',session()->get('id'))->get();
+        // @dd($data_detail);
         return view('detail')->with(['data' => $data_detail]);
+    }
+
+    public function detailPc(){
+        $data_detail = TransaksiDetail::where('transaksi_id',session()->get('id'))->get();
+        // @dd($data_detail);
+        return view('detailpc')->with(['data' => $data_detail]);
     }
 
     public function jumlah(){

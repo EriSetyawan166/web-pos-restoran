@@ -28,7 +28,7 @@
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" href="{{route('dashboard')}}">
-          <span class="align-middle">Resto Calas</span>
+          <span class="align-middle">Warung Calas</span>
         </a>
 
 				<ul class="sidebar-nav">

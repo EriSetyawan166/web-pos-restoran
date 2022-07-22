@@ -25,7 +25,7 @@
                             <div class="col-sm-12">
                                 <div class="card shadow">
                                     <div class="card-body">
-                                        <h1 class="text-center">Resto Calas</h1>
+                                        <h1 class="text-center">Warung Calas</h1>
                                         <p class="text-center">Jl. Taman Melati, Bekasi, West Java
                                             <br>(021)8475937582</p>
                                         <p class="text-center"></p>
@@ -63,7 +63,7 @@
                                         </div>
                                         <p class="text-center pt-5">Terimakasih dan semoga harimu menyenangkan!</p>
                                         <div class="d-flex justify-content-center">{!! DNS1D::getBarcodeHTML($transaksinow->id_transaksi, "C128",3,60) !!}</div>
-                                        <p class="text-center pt-3">Resto Calas</p>
+                                        <p class="text-center pt-3">Warung Calas</p>
 
                                     </div>
                                 </div>

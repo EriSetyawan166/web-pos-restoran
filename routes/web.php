@@ -55,6 +55,7 @@ Route::group(['prefix' => 'warung'], function(){
     Route::get('receipt', 'App\Http\Controllers\KeranjangController@receipt')->name('receipt');
     Route::get('selesai', 'App\Http\Controllers\KeranjangController@selesai')->name('selesai');
     Route::get('detail', 'App\Http\Controllers\KeranjangController@detail')->name('detail');
+    Route::get('detailpc', 'App\Http\Controllers\KeranjangController@detailPc')->name('detail-pc');
     Route::get('jumlah','App\Http\Controllers\KeranjangController@jumlah')->name('jumlah');
     Route::get('total','App\Http\Controllers\KeranjangController@total')->name('total');
 });

@@ -15,7 +15,7 @@
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-    <title>Resto Calas</title>
+    <title>Warung Calas</title>
 
     <link href="{{asset('css/card.css')}}" rel="stylesheet">
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
@@ -29,7 +29,7 @@
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
                 <a class="sidebar-brand" href="{{url('warung')}}">
-        <span class="align-middle">Resto Calas</span>
+        <span class="align-middle">Warung Calas</span>
         </a>
 
                 <ul class="sidebar-nav">

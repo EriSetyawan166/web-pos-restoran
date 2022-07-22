@@ -73,7 +73,7 @@
                 <div class="container my-5 py-5">
                     <div class="row align-items-center g-5">
                         <div class="col-lg-6 text-center text-lg-start">
-                            <h1 class="display-3 text-white animated slideInLeft">Memang Mantap<br>Mantap</h1>
+                            <h1 class="display-3 text-white animated slideInLeft">Memang<br>Mantap</h1>
                             <p class="text-white animated slideInLeft mb-4 pb-2">Menyediakan berbagai macam makanan yang mampu memanjakan lidah serta perut dengan harga yang terjangkau</p>
                             <a href="{{url('warung')}}" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft" >Pesan Sekarang</a>
                         </div>

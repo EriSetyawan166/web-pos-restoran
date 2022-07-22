@@ -27,7 +27,7 @@
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" href="{{route('dashboard')}}">
-          <span class="align-middle">Resto Cals</span>
+          <span class="align-middle">Resto Calas</span>
         </a>
 
 				<ul class="sidebar-nav">
@@ -156,7 +156,7 @@
                                                         @csrf
                                                         <div class="modal-body">
                                                             <div class="form-group mt-3">
-                                                                <input type="text" id="nip" name="nip" placeholder="Masukkan nomor nip" class="form-control" required autocomplete="off" pattern="[0-9]+" >
+                                                                <input type="text" id="nip" name="nip" placeholder="Masukkan nomor nip" class="form-control" required autocomplete="off" pattern="[0-9]+" maxlength="5">
                                                             </div>
                                                             <div class="form-group mt-3">
                                                                 <input type="text" id="nama" name="nama" placeholder="Masukkan nama staff" class="form-control" required autocomplete="off" pattern="[A-Za-z' ]+">
@@ -255,7 +255,7 @@
                                                             @csrf
                                                             <div class="modal-body">
                                                                 <div class="form-group mt-3">
-                                                                    <input type="text" id="nip" name="nip" placeholder="Masukkan nomor nip" class="form-control" required autocomplete="off" value="{{$dt->nip}}" >
+                                                                    <input type="text" id="nip" name="nip" placeholder="Masukkan nomor nip" class="form-control" required autocomplete="off" value="{{$dt->nip}}" maxlength="5">
                                                                 </div>
                                                                 <div class="form-group mt-3">
                                                                     <input type="text" id="nama" name="nama" placeholder="Masukkan nama staff" class="form-control" required autocomplete="off" value="{{$dt->nama}}">

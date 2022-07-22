@@ -14,7 +14,7 @@
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-    <title>Resto Calas</title>
+    <title>Warung Calas</title>
 
     <link href="{{asset('css/card.css')}}" rel="stylesheet">
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
@@ -28,7 +28,7 @@
         <nav id="sidebar" class="sidebar js-sidebar">
             <div class="sidebar-content js-simplebar">
                 <a class="sidebar-brand" href="{{url('warung')}}">
-        <span class="align-middle">Resto Calas</span>
+        <span class="align-middle">Warung Calas</span>
         </a>
 
                 <ul class="sidebar-nav">
@@ -113,7 +113,8 @@
                                 <h5 class="mb-0"><i class="fas fa-cart-shopping me-2"></i>Keranjang</h5>
                               </div>
                               <div class="card-body" data-mdb-perfect-scrollbar="true">
-                                @foreach ($transaksidetail as $td)
+                                <div id="tampil"></div>
+                                {{-- @foreach ($transaksidetail as $td)
                                 <div class="d-flex justify-content-between">
                                     <h4>{{$td->jumlah}}</h4>
                                     <h4 class="text-success">Rp{{number_format($td->harga_satuan*$td->jumlah)}}</h4>
@@ -130,11 +131,11 @@
                                                     <button class="" style="background-color: transparent;border-color: transparent;width: 11%" ><a onclick="return false" href="{{url('warung/keranjang-kurang')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Remove"><i
                                                         class="fas fa-minus text-danger"></i></a></button>
                                                     @else
-                                                    <button style="background-color: transparent;border-color: transparent;width: 11%" ><a href="{{url('warung/keranjang-kurang')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Remove"><i
+                                                    <button id="{{$td->produk_id}}"   onclick="id_kurang(this.id)" style="background-color: transparent;border-color: transparent;width: 11%" ><a data-mdb-toggle="tooltip" title="Remove"><i
                                                         class="fas fa-minus text-danger"></i></a></button>
                                                     @endif
 
-                                                <button style="background-color: transparent;border-color: transparent;"> <a  href="{{url('warung/keranjang-tambah')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Done"><i
+                                                <button id="{{$td->produk_id}}"   onclick="id_tambah(this.id)" style="background-color: transparent;border-color: transparent;"> <a  data-mdb-toggle="tooltip" title="Done"><i
                                                     class="fas fa-add text-success "></i></a></button>
 
                                         </div>
@@ -142,7 +143,7 @@
                                     <h6 class="ps-2" style="text-align: right">{{$td->produk->nama_produk}}</h6>
                                 </div>
                                 <hr>
-                                @endforeach
+                                @endforeach --}}
                                 @foreach ($transaksidetail as $td)
                                     <div class="modal fade" id="hapus_produkhp{{$td->produk->id_produk}}" tabindex="-1" role="dialog" aria-labelledby="hapus-transaksi" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -179,7 +180,8 @@
                                 <h5 class="mt-5">Jumlah Pesanan</h5>
                                 <div class="d-flex justify-content-between">
                                     <p>Sub Total:</p>
-                                    <h3 class="text-success">Rp{{number_format($transaksinow->total_harga)}}</h3>
+                                    <div id="jumlah"></div>
+
                                 </div>
 
 
@@ -210,7 +212,7 @@
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
 
 
-                                
+
 
 
                             </div>
@@ -252,60 +254,9 @@
                                 <h5 class="mb-0"><i class="fas fa-cart-shopping me-2"></i>Keranjang</h5>
                               </div>
                               <div class="card-body" data-mdb-perfect-scrollbar="true">
-                                <div id="tampil"></div>
-                                {{-- <table class="table mb-0">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">Nama Menu</th>
-                                      <th scope="col">Kategori</th>
-                                      <th scope="col">Jumlah</th>
-                                      <th scope="col">Harga satuan</th>
-                                      <th scope="col">Edit</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    @foreach ($data as $td)
-                                    <tr class="fw-normal">
-                                        <th>
-                                          <img src="{{asset('upload/foto_produk')}}/{{$td->produk->foto_produk}}"
-                                            class="shadow-1-strong " alt="avatar 1"
-                                            style="width: 55px; height: auto;">
-                                          <span class="ms-2">{{$td->produk->nama_produk}}</span>
-                                        </th>
-                                        <td class="align-middle">
-                                          <span>{{$td->produk->kategori->nama_kategori}}</span>
-                                        </td>
-                                        <td class="align-middle">
-                                          <h6 class="mb-0">{{$td->jumlah}}</h6>
-                                        </td>
-                                        <td class="align-middle">
-                                          <h6 class="mb-0">Rp{{number_format($td->harga_satuan)}}</h6>
-                                        </td>
-
-
-                                        <td class="align-middle">
-
-                                          <a  data-mdb-toggle="tooltip" title="Remove"><i
-                                              class="fas fa-trash-alt text-danger me-3" data-toggle="modal" data-target="#hapus_produkpc{{$td->produk->id_produk}}"></i></a>
-                                              @if ($td->jumlah == 1)
-                                              <button style="background-color: transparent;border-color: transparent"><a onclick="return false" href="{{url('warung/keranjang-kurang')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Remove"><i
-                                                class="fas fa-minus text-danger me-3"></i></a></button>
-
-                                                @else
-                                                <button style="background-color: transparent;border-color: transparent"><a href="{{url('warung/keranjang-kurang')}}/{{$td->produk_id}}" data-mdb-toggle="tooltip" title="Remove"><i
-                                                    class="fas fa-minus text-danger me-3"></i></a></button>
-                                              @endif
-
-                                             <button id="{{$td->produk_id}}"   onclick="id_tambah(this.id)" style="background-color: transparent;border-color: transparent"> <a   data-mdb-toggle="tooltip" title="Done"><i
-                                                  class="fas fa-add text-success me-3"></i></a></button>
-
-
-
-                                        </td>
-
-                                      </tr>
-                                    @endforeach
-                                    @foreach ($transaksidetail as $td)
+                                <div id="tampilpc"></div>
+                                {{--  --}}
+                                    {{-- @foreach ($transaksidetail as $td)
                                     <div class="modal fade" id="hapus_produkpc{{$td->produk->id_produk}}" tabindex="-1" role="dialog" aria-labelledby="hapus-transaksi" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
@@ -404,6 +355,7 @@
 
     $(document).ready(function(){
         tampil();
+        tampilPc();
         jumlah();
         total();
         console.log("ini jalan");
@@ -412,6 +364,12 @@
     function tampil(){
         $.get("{{url('warung/detail')}}",{},function(data,status){
             $("#tampil").html(data)
+        });
+    }
+
+    function tampilPc(){
+        $.get("{{url('warung/detailpc')}}",{},function(data,status){
+            $("#tampilpc").html(data)
         });
     }
 
@@ -442,8 +400,10 @@
             success:function(data){
                 console.log("keranjang-tambah/"+id);
                 tampil();
+                tampilPc();
                 jumlah();
                 total();
+
             }
         });
     }
@@ -462,8 +422,10 @@
             success:function(data){
                 console.log("keranjang-kurang/"+id);
                 tampil();
+                tampilPc();
                 jumlah();
                 total();
+
             }
         });
     }
