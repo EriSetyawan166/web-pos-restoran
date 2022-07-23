@@ -318,7 +318,7 @@
                                 <h5 class="mt-5">Jumlah Pesanan</h5>
                                 <div class="d-flex justify-content-between">
                                     <p>Sub Total:</p>
-                                    <div id="jumlah"></div>
+                                    <div id="jumlah2"></div>
                                     {{-- <h3 class="text-success">Rp{{number_format($transaksinow->total_harga)}}</h3> --}}
                                 </div>
                               </div>
@@ -376,6 +376,7 @@
     function jumlah(){
         $.get("{{url('warung/jumlah')}}",{},function(data,status){
             $("#jumlah").html(data)
+            $("#jumlah2").html(data)
         });
     }
 
