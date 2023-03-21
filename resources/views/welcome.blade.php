@@ -31,8 +31,9 @@
     <!-- Template Stylesheet -->
     <link href="{{asset('restoran/css/style.css')}}" rel="stylesheet">
 </head>
+</style>
 
-<body style="">
+<body>
     <div class="container-xxl bg-white p-0" style="height: 100% !important;">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -84,33 +85,6 @@
                 </div>
             </div>
         </div>
-        <!-- Navbar & Hero End -->
-
-
-        <!-- Service Start -->
-
-        <!-- Service End -->
-
-
-
-        <!-- About End -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- Back to Top -->
-
     </div>
 
     <!-- JavaScript Libraries -->
