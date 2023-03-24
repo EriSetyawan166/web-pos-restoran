@@ -31,7 +31,7 @@ class ItemSeeder extends Seeder
         ]);
 
         DB::table('produk')->insert([[
-            'kategori_id' => 2,
+            'kategori_id' => 1,
             'kode_produk' => 'PR00001',
             'nama_produk' => 'Es Teh',
             'foto_produk' => '1679365504-es_teh.jpg',
@@ -39,7 +39,7 @@ class ItemSeeder extends Seeder
             'status'      => 'Tersedia'
         ],
         [
-            'kategori_id' => 2,
+            'kategori_id' => 1,
             'kode_produk' => 'PR00002',
             'nama_produk' => 'Susu Dingin',
             'foto_produk' => '1679365528-susu dingin.jpeg',
@@ -47,7 +47,7 @@ class ItemSeeder extends Seeder
             'status'      => 'Kosong'
         ], 
         [
-            'kategori_id' => 2,
+            'kategori_id' => 1,
             'kode_produk' => 'PR00003',
             'nama_produk' => 'Boba',
             'foto_produk' => '1679365545-boba.jpg',
@@ -57,7 +57,7 @@ class ItemSeeder extends Seeder
         ],
 
         [
-            'kategori_id' => 2,
+            'kategori_id' => 1,
             'kode_produk' => 'PR00004',
             'nama_produk' => 'Capcin',
             'foto_produk' => '1679365565-capucino cincau.jpeg',
@@ -67,7 +67,7 @@ class ItemSeeder extends Seeder
         ],
 
         [
-            'kategori_id' => 2,
+            'kategori_id' => 1,
             'kode_produk' => 'PR00005',
             'nama_produk' => 'Pop Ice',
             'foto_produk' => '1679365582-pop_ice.jpg',
@@ -77,7 +77,7 @@ class ItemSeeder extends Seeder
         ],
 
         [
-            'kategori_id' => 3,
+            'kategori_id' => 2,
             'kode_produk' => 'PR00006',
             'nama_produk' => 'Bubur',
             'foto_produk' => '1679365658-bubur.jpg',
